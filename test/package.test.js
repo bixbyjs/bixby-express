@@ -4,8 +4,8 @@ var pkg = require('..');
 
 describe('bixby-express', function() {
   
-  it('should export object', function() {
-    expect(pkg).to.be.an('object');
+  it('should export factory', function() {
+    expect(pkg).to.be.a('function');
   });
   
 });
