@@ -11,7 +11,7 @@ describe('bixby-express/boot/httpserver', function() {
   it('should start a http server', function(done) {
     var settings = {get:function(){ return {port:0}}};
     var self = function(){};
-    self.boot = pkg('boot/httpserver')(null, settings, console);
+    self.boot = pkg('boot/httpserver')(settings, console);
     self.boot(function(err){
       expect(err).to.not.exist;
       expect(self.httpServer).to.exist;
@@ -25,7 +25,8 @@ describe('bixby-express/boot/httpserver', function() {
       cb(undefined,require(__dirname+'/../fixtures/keys.json'));
     };
     var self = function(){};
-    self.boot = pkg('boot/httpserver')(keypair, settings, {info:console.log,debug:function(){}});
+    var pkg = $require('../..', { 'akeypair': keypair });
+    self.boot = pkg('boot/httpserver')(settings, {info:console.log,debug:function(){}});
     self.boot(function(err){
       expect(err).to.not.exist;
       expect(self.httpsServer).to.exist;
