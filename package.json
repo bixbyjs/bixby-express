@@ -1,6 +1,6 @@
 {
   "name": "bixby-express",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Express components for the Bixby framework.",
   "keywords": [
     "components",
@@ -27,10 +27,12 @@
   ],
   "main": "./lib",
   "dependencies": {
+    "akeypair": "~0.2.3"
   },
   "devDependencies": {
     "mocha": "1.x.x",
-    "chai": "1.x.x"
+    "chai": "1.x.x",
+    "proxyquire": "~1.0.1"
   },
   "engines": {
     "node": "*"
