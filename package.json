@@ -27,7 +27,9 @@
   ],
   "main": "./lib",
   "dependencies": {
-    "akeypair": "~0.2.3"
+    "akeypair": "~0.2.3",
+    "express": "^4.13.3",
+    "passport": "^0.2.2"
   },
   "devDependencies": {
     "mocha": "1.x.x",
