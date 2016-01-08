@@ -1,6 +1,6 @@
 {
   "name": "bixby-express",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Express components for the Bixby framework.",
   "keywords": [
     "components",
