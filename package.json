@@ -29,7 +29,8 @@
   "dependencies": {
     "bixby": "^0.1.0",
     "express": "^4.13.3",
-    "passport": "^0.3.0"
+    "passport": "^0.3.0",
+    "visa": "0.0.1"
   },
   "devDependencies": {
     "mocha": "1.x.x",
