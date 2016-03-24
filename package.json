@@ -19,10 +19,11 @@
   "bugs": {
     "url": "http://github.com/bixbyjs/bixby-express/issues"
   },
+  "license": "MIT",
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://www.opensource.org/licenses/MIT"
+      "url": "http://opensource.org/licenses/MIT"
     }
   ],
   "main": "./lib",
@@ -33,8 +34,9 @@
     "visa": "0.0.1"
   },
   "devDependencies": {
-    "mocha": "1.x.x",
-    "chai": "1.x.x",
+    "make-node": "0.3.x",
+    "mocha": "2.x.x",
+    "chai": "3.x.x",
     "proxyquire": "~1.0.1"
   },
   "engines": {
