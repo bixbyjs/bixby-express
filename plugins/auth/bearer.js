@@ -1,3 +1,3 @@
 exports = module.exports = {
-  'scheme': require('./local/scheme'),
+  'scheme': require('./bearer/scheme'),
 };

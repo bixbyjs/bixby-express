@@ -8,5 +8,5 @@ exports = module.exports = function(verifyToken) {
 exports['@implements'] = 'http://i.bixbyjs.org/http/auth/Scheme';
 exports['@scheme'] = 'bearer';
 exports['@require'] = [
-  'http://i.bixbyjs.org/aaa/verifyTokenFunc'
+  'http://i.bixbyjs.org/aaa/authenticateTokenFunc'
 ];
