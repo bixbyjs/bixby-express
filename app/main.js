@@ -21,8 +21,8 @@ exports = module.exports = function(__app__, service, server, settings, logger) 
 exports['@singleton'] = true;
 exports['@require'] = [
   'app',
-  'http/service',
-  'http/server',
-  'settings',
-  'logger'
+  'http://i.bixbyjs.org/http/Service',
+  'http://i.bixbyjs.org/http/Server',
+  'http://i.bixbyjs.org/Settings',
+  'http://i.bixbyjs.org/Logger'
 ];
