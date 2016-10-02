@@ -1,6 +1,17 @@
 var uri = require('url');
 
 
+// In main, via Promise.then/catch
+/*
+    try {
+      // If service discovery is available, add a phase to announce the
+      // service(s) provided by the application.
+      //var registry = IoC.create('sd/registry');
+      //init.phase(require('./phases/announce')(registry, server, logger, settings.get('http/service')));
+    } catch (_) {}
+*/
+
+
 module.exports = function(registry, server, logger, options) {
   options = options || {};
   
