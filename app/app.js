@@ -3,6 +3,7 @@ exports = module.exports = function(IoC, service, settings, logger) {
   // TODO: Make this adaptable to the runtime environment (CGI, Lambda, etc)
   
   return Promise.resolve()
+    /*
     .then(IoC.create.bind(IoC, './routes'))
     .then(function(routes) {
       routes.apply(service);
@@ -14,7 +15,8 @@ exports = module.exports = function(IoC, service, settings, logger) {
       }
       throw err;
     })
-    .then(function() { return IoC.create('http://i.bixbyjs.org/http/Server'); }) 
+    */
+    .then(function() { return IoC.create('http://i.bixbyjs.org/http/Server'); })
     .then(function(server) {
       server.on('request', service);
   
@@ -35,8 +37,7 @@ exports = module.exports = function(IoC, service, settings, logger) {
 exports['@singleton'] = true;
 exports['@require'] = [
   '!container',
-  'http://i.bixbyjs.org/http/Service',
-  //'http://i.bixbyjs.org/http/Server',
+  './service', // 'http://i.bixbyjs.org/http/Service',
   'http://i.bixbyjs.org/Settings',
   'http://i.bixbyjs.org/Logger'
 ];

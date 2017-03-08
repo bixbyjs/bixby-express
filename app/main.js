@@ -1,3 +1,4 @@
+/*
 exports = module.exports = function(__app__, service, server, settings, logger) {
   
   // Dispatch requests to the handler, which in this case is an Express app.
@@ -26,3 +27,4 @@ exports['@require'] = [
   'http://i.bixbyjs.org/Settings',
   'http://i.bixbyjs.org/Logger'
 ];
+*/
