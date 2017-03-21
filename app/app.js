@@ -18,6 +18,7 @@ exports = module.exports = function(IoC, service, settings, logger) {
     */
     .then(function() { return IoC.create('http://i.bixbyjs.org/http/Server'); })
     .then(function(server) {
+      // Dispatch requests to the service, which in this case is an Express app.
       server.on('request', service);
   
       server.once('listening', function() {
