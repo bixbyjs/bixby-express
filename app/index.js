@@ -1,4 +1,9 @@
-exports = module.exports = function(id) {
+exports = module.exports = {
+  'middleware/authenticate': require('./middleware/authenticate')
+};
+
+
+exports.load = function(id) {
   try {
     return require('./' + id);
   } catch (ex) {
