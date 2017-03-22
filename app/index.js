@@ -1,5 +1,6 @@
 exports = module.exports = {
-  'middleware/authenticate': require('./middleware/authenticate')
+  'middleware/authenticate': require('./middleware/authenticate'),
+  'middleware/loadstate': require('./middleware/loadstate')
 };
 
 
