@@ -8,7 +8,7 @@ exports = module.exports = function(authenticator) {
       opts.session = true;
     }
     
-    return authenticator.authenticate('local', opts);
+    return authenticator.authenticate(strategy, opts);
   };
 };
 
