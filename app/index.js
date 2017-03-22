@@ -1,5 +1,6 @@
 exports = module.exports = {
   'middleware/authenticate': require('./middleware/authenticate'),
+  'middleware/csrfprotection': require('./middleware/csrfprotection'),
   'middleware/loadstate': require('./middleware/loadstate'),
   'middleware/parse': require('./middleware/parse')
 };
