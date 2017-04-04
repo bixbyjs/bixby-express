@@ -6,6 +6,8 @@ exports = module.exports = function() {
     switch (type) {
     case 'application/x-www-form-urlencoded':
       return require('body-parser').urlencoded({ extended: false });
+    case 'application/json':
+      return require('body-parser').json();
     default:
       throw new Error('Unsupported content type: ' + type);
     }
