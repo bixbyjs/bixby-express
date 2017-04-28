@@ -27,6 +27,20 @@
     }
   ],
   "main": "./app",
+  "assembly": {
+    "components": [
+      "middleware/authenticate",
+      "middleware/completetask",
+      "middleware/cors",
+      "middleware/csrfprotection",
+      "middleware/errorlogging",
+      "middleware/failtask",
+      "middleware/initialize",
+      "middleware/loadstate",
+      "middleware/parse",
+      "middleware/parsecookies"
+    ]
+  },
   "dependencies": {
     "bixby": "^0.1.0",
     "bixby-http": "^0.1.1",

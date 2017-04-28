@@ -1,3 +1,4 @@
+/*
 exports = module.exports = {
   'middleware/authenticate': require('./middleware/authenticate'),
   'middleware/completetask': require('./middleware/completetask'),
@@ -10,9 +11,9 @@ exports = module.exports = {
   'middleware/parse': require('./middleware/parse'),
   'middleware/parsecookies': require('./middleware/parsecookies')
 };
+*/
 
-
-exports.load = function(id) {
+exports = module.exports = function(id) {
   try {
     return require('./' + id);
   } catch (ex) {
