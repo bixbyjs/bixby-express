@@ -29,6 +29,8 @@
   "main": "./app",
   "assembly": {
     "components": [
+      "auth/bearer/scheme",
+      "auth/form/scheme",
       "middleware/authenticate",
       "middleware/completetask",
       "middleware/cors",
