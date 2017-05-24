@@ -16,6 +16,6 @@ exports = module.exports = function(authenticateToken, Tokens) {
 };
 
 exports['@require'] = [
-  'http://i.bixbyjs.org/aaa/token/authenticate',
+  'http://i.bixbyjs.org/security/authentication/token/authenticate',
   'http://i.bixbyjs.org/tokens'
 ];

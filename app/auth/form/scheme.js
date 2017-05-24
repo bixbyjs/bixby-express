@@ -7,5 +7,5 @@ exports = module.exports = function(verifyPassword) {
 
 exports['@implements'] = 'http://i.bixbyjs.org/http/auth/Scheme';
 exports['@require'] = [
-  'http://i.bixbyjs.org/aaa/password/authenticate'
+  'http://i.bixbyjs.org/security/authentication/password/authenticate'
 ];
