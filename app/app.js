@@ -38,7 +38,7 @@ exports = module.exports = function(IoC, service, settings, logger) {
 exports['@singleton'] = true;
 exports['@require'] = [
   '!container',
-  './service', // 'http://i.bixbyjs.org/http/Service',
+  'http://i.bixbyjs.org/http/Service',
   'http://i.bixbyjs.org/Settings',
   'http://i.bixbyjs.org/Logger'
 ];
