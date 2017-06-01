@@ -1,4 +1,5 @@
 exports = module.exports = function(IoC, service, settings, logger) {
+  var normalizePort = require('../lib/utils').normalizePort;
   
   // TODO: Make this adaptable to the runtime environment (CGI, Lambda, etc)
   
@@ -29,7 +30,8 @@ exports = module.exports = function(IoC, service, settings, logger) {
       var opts = settings.get('http/server') || {};
     
       var address = opts.address;
-      var port = opts.port !== undefined ? opts.port : 8080;
+      var port = opts.port !== undefined ? opts.port : (normalizePort(process.env.PORT) || 8080);
+      
       server.listen(port, address);
     });
   
