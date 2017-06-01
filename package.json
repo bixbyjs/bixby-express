@@ -36,6 +36,7 @@
       "middleware/errorlogging",
       "middleware/failtask",
       "middleware/initialize",
+      "middleware/logging",
       "middleware/loadstate",
       "middleware/parse",
       "middleware/parsecookies"
@@ -45,7 +46,8 @@
     "body-parser": "^1.17.1",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.1",
-    "csurf": "^1.9.0"
+    "csurf": "^1.9.0",
+    "morgan": "^1.8.2"
   },
   "devDependencies": {
     "make-node": "0.3.x",
