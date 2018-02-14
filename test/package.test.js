@@ -1,11 +1,11 @@
 /* global describe, it, expect */
 
-var pkg = require('..');
-
 describe('bixby-express', function() {
   
-  it('should export factory', function() {
-    expect(pkg).to.be.a('function');
+  it('should throw if required', function() {
+    expect(function() {
+      var pkg = require('..');
+    }).to.throw(Error).with.property('code', 'MODULE_NOT_FOUND');
   });
   
 });

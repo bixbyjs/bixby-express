@@ -1,9 +1,10 @@
 /* global describe, it, expect */
 
-var pkg = require('../..');
+//var pkg = require('../..');
 
 describe('bixby-express/boot/httpserver', function() {
 
+  /*
   it('should export factory', function() {
     expect(pkg('boot/httpserver')).to.be.a('function');
   });
@@ -33,7 +34,7 @@ describe('bixby-express/boot/httpserver', function() {
       done();
     })
   });
-  
+  */
   
   
 });
