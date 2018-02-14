@@ -3,6 +3,12 @@ exports = module.exports = function(IoC, service, settings, logger) {
   
   // TODO: Make this adaptable to the runtime environment (CGI, Lambda, etc)
   
+  // TODO: Dynamically create the Application object, and if it is not available,
+  //       fallback to loading an internal one, which automatically `use`s
+  //       all available services.
+  //       ie, it will automatically put the /oauth and /oauth/mfa etc services
+  //       in place
+  
   return Promise.resolve()
     /*
     .then(IoC.create.bind(IoC, './routes'))
