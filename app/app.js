@@ -1,4 +1,4 @@
-exports = module.exports = function(IoC, gateways, service, settings, logger) {
+exports = module.exports = function(IoC, gateways, service, logger) {
   var normalizePort = require('../lib/utils').normalizePort;
   
   
@@ -40,6 +40,5 @@ exports['@require'] = [
   '!container',
   './gateways',
   'http://i.bixbyjs.org/http/Service',
-  'http://i.bixbyjs.org/Settings',
   'http://i.bixbyjs.org/Logger'
 ];
