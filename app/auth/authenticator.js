@@ -56,6 +56,5 @@ exports = module.exports = function(IoC, logger) {
     });
 }
 
-exports['@implements'] = 'http://i.bixbyjs.org/http/Authenticator';
 exports['@singleton'] = true;
 exports['@require'] = [ '!container', 'http://i.bixbyjs.org/Logger' ];

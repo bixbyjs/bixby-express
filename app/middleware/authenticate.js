@@ -14,5 +14,5 @@ exports = module.exports = function(authenticator) {
 
 exports['@implements'] = 'http://i.bixbyjs.org/http/middleware/authenticate';
 exports['@require'] = [
-  'http://i.bixbyjs.org/http/Authenticator'
+  '../auth/authenticator'
 ];
