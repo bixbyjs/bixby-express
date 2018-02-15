@@ -1,4 +1,4 @@
-exports = module.exports = function(IoC, gateways, service, logger) {
+exports = module.exports = function(IoC, gateways, logger) {
   var normalizePort = require('../lib/utils').normalizePort;
   
   
@@ -8,21 +8,15 @@ exports = module.exports = function(IoC, gateways, service, logger) {
   //       ie, it will automatically put the /oauth and /oauth/mfa etc services
   //       in place
   
-  return Promise.resolve()
-    /*
-    .then(IoC.create.bind(IoC, './routes'))
-    .then(function(routes) {
-      routes.apply(service);
-    })
+  // http://i.bixbyjs.org/http/Service
+  
+  return Promise.resolve(IoC.create('service'))
     .catch(function(err) {
-      // FIXME: Test for error code
-      if (err.message.indexOf('Unable to create') == 0) {
-        return;
-      }
+      // TODO: Check that the error is failure to create app/service
+      return IoC.create('./service');
       throw err;
     })
-    */
-    .then(function() {
+    .then(function(service) {
       var gatewayIfaces = IoC.components(gateways());
     
       return Promise.all(gatewayIfaces.map(function(iface) { return iface.create(); } ))
@@ -41,6 +35,5 @@ exports['@singleton'] = true;
 exports['@require'] = [
   '!container',
   './gateways',
-  'http://i.bixbyjs.org/http/Service',
   'http://i.bixbyjs.org/Logger'
 ];
