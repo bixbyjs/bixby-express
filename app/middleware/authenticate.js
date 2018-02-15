@@ -8,7 +8,12 @@ exports = module.exports = function(authenticator) {
       opts.session = true;
     }
     
-    return authenticator.authenticate(strategy, opts);
+    //return authenticator.authenticate(strategy, opts);
+    // FIXME: Remove the need for initialze middleware.
+    return [
+      authenticator.initialize(),
+      authenticator.authenticate(strategy, opts)
+    ];
   };
 };
 
