@@ -28,7 +28,9 @@
   ],
   "main": "./app",
   "assembly": {
+    "namespace": "http",
     "components": [
+      "app",
       "middleware/authenticate",
       "middleware/completetask",
       "middleware/cors",

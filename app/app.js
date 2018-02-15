@@ -36,6 +36,7 @@ exports = module.exports = function(IoC, gateways, service, logger) {
     });
 };
 
+exports['@implements'] = 'http://i.bixbyjs.org/Main';
 exports['@singleton'] = true;
 exports['@require'] = [
   '!container',
