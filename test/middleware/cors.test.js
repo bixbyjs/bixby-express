@@ -11,6 +11,7 @@ describe('middleware/cors', function() {
   
   it('should be annotated', function() {
     expect(factory['@implements']).to.equal('http://i.bixbyjs.org/http/middleware/cors');
+    expect(factory['@singleton']).to.equal(undefined);
   });
   
 });

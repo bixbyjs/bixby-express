@@ -11,6 +11,7 @@ describe('middleware/parsecookies', function() {
   
   it('should be annotated', function() {
     expect(factory['@implements']).to.equal('http://i.bixbyjs.org/http/middleware/parseCookies');
+    expect(factory['@singleton']).to.equal(undefined);
   });
   
 });

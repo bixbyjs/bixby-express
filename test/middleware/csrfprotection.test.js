@@ -11,6 +11,7 @@ describe('middleware/csrfprotection', function() {
   
   it('should be annotated', function() {
     expect(factory['@implements']).to.equal('http://i.bixbyjs.org/http/middleware/csrfProtection');
+    expect(factory['@singleton']).to.equal(undefined);
   });
   
 });

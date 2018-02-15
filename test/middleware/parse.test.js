@@ -11,6 +11,7 @@ describe('middleware/parse', function() {
   
   it('should be annotated', function() {
     expect(factory['@implements']).to.equal('http://i.bixbyjs.org/http/middleware/parse');
+    expect(factory['@singleton']).to.equal(undefined);
   });
   
 });
