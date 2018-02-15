@@ -8,12 +8,16 @@ exports = module.exports = function(IoC, logger) {
     .then(function(service) {
       var httpServices = IoC.components('http://i.bixbyjs.org/http/Service');
   
-      return Promise.all(httpServices.map(function(comp) { return comp.create(); } ))
+      return Promise.all(httpServices.map(function(srv) { return srv.create(); } ))
         .then(function(srvs) {
           srvs.forEach(function(srv, i) {
-            logger.info('Loaded HTTP service: ' + httpServices[i].a['@path']);
+            var httpService = httpServices[i]
+              , path = httpService.a['@path'];
             
-            var path = httpServices[i].a['@path'];
+            // TODO: Improve how the path is determined, if it is not annotated
+            //  ie, package namespace, etc
+            
+            logger.info('Loaded HTTP service: ' + path);
             if (path) {
               service.use(path, srv);
             } else {
