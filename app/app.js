@@ -28,27 +28,8 @@ exports = module.exports = function(IoC, gateways, service, settings, logger) {
       return Promise.all(gatewayIfaces.map(function(iface) { return iface.create(); } ))
         .then(function(gateways) {
           gateways.forEach(function(gateway, i) {
-            //console.log(gateway);
-            //console.log(i);
-            
-            var server = gateway;
-            
             // Dispatch requests to the service, which in this case is an Express app.
-            server.on('request', service);
-  
-            server.once('listening', function() {
-              var addr = this.address();
-              logger.info('HTTP server listening on %s:%d', addr.address, addr.port);
-            });
-      
-            var opts = settings.get('http/server') || {};
-    
-            var address = opts.address;
-            var port = opts.port !== undefined ? opts.port : (normalizePort(process.env.PORT) || 8080);
-      
-            server.listen(port, address);
-            
-            
+            gateway.on('request', service);
           });
         });
     });
