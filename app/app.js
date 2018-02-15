@@ -28,7 +28,8 @@ exports = module.exports = function(IoC, gateways, service, logger) {
       return Promise.all(gatewayIfaces.map(function(iface) { return iface.create(); } ))
         .then(function(gateways) {
           gateways.forEach(function(gateway, i) {
-            // Dispatch requests to the service, which in this case is an Express app.
+            // Dispatch requests to the service, which in this case is an
+            // Express app.
             gateway.on('request', service);
           });
         });
