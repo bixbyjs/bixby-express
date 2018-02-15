@@ -6,7 +6,7 @@ exports = module.exports = function(IoC, dfault) {
   
   return Promise.resolve(factory)
     .then(function(factory) {
-      var detectorPlugIns = IoC.components('http://i.bixbyjs.org/platform/http/gatewayDetector');
+      var detectorPlugIns = IoC.components('http://i.bixbyjs.org/platform/http/GatewayDetector');
   
       return Promise.all(detectorPlugIns.map(function(plugin) { return plugin.create(); } ))
         .then(function(plugins) {
