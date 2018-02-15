@@ -1,7 +1,7 @@
 {
   "name": "bixby-express",
   "version": "0.1.7",
-  "description": "Express components for the Bixby framework.",
+  "description": "Express framework components for Bixby.js.",
   "keywords": [
     "components",
     "express",
