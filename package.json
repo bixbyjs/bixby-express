@@ -47,6 +47,7 @@
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.1",
     "csurf": "^1.9.0",
+    "fluidfactory": "^0.1.0",
     "morgan": "^1.8.2"
   },
   "devDependencies": {
