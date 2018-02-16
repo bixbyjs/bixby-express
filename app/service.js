@@ -6,13 +6,13 @@ exports = module.exports = function(IoC, logger) {
   
   return Promise.resolve(service)
     .then(function(service) {
-      var httpServices = IoC.components('http://i.bixbyjs.org/http/Service');
+      var serviceComponents = IoC.components('http://i.bixbyjs.org/http/Service');
   
-      return Promise.all(httpServices.map(function(srv) { return srv.create(); } ))
+      return Promise.all(serviceComponents.map(function(comp) { return comp.create(); } ))
         .then(function(srvs) {
           srvs.forEach(function(srv, i) {
-            var httpService = httpServices[i]
-              , path = httpService.a['@path'];
+            var component = serviceComponents[i]
+              , path = component.a['@path'];
             
             // TODO: Improve how the path is determined, if it is not annotated
             //  ie, package namespace, etc
