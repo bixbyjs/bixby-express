@@ -22,11 +22,10 @@ exports = module.exports = function(IoC, dfault) {
         });
     })
     .then(function(factory) {
-      return function() {
-        var rv = factory.create();
-        return Array.isArray(rv) ? rv : [ rv ];
-      }
+      var gateways = factory.create();
+      if (!Array.isArray(gateways)) { gateways = [ gateways ]; }
+      return Promise.all(gateways);
     });
 };
 
-exports['@require'] = [ '!container', './gateways/default' ];
+exports['@require'] = [ '!container', './gateway/default' ];
