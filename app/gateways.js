@@ -6,13 +6,13 @@ exports = module.exports = function(IoC, dfault) {
   
   return Promise.resolve(factory)
     .then(function(factory) {
-      var detectorPlugIns = IoC.components('http://i.bixbyjs.org/platform/http/GatewayDetector');
+      var giComponents = IoC.components('http://i.bixbyjs.org/platform/http/GatewayInterface');
   
-      return Promise.all(detectorPlugIns.map(function(plugin) { return plugin.create(); } ))
-        .then(function(plugins) {
-          plugins.forEach(function(plugin, i) {
-            logger.info('Loaded HTTP gateway detector: ' + detectorPlugIns[i].a['@name']);
-            factory.use(plugin);
+      return Promise.all(giComponents.map(function(comp) { return comp.create(); } ))
+        .then(function(ifaces) {
+          ifaces.forEach(function(iface, i) {
+            logger.info('Loaded HTTP gateway interface: ' + giComponents[i].a['@name']);
+            factory.use(iface);
           });
           
           factory.use(dfault);
@@ -23,11 +23,8 @@ exports = module.exports = function(IoC, dfault) {
     })
     .then(function(factory) {
       return function() {
-        var ifaces = factory.create();
-        if (typeof ifaces == 'string') {
-          return [ ifaces ];
-        }
-        return ifaces;
+        var rv = factory.create();
+        return Array.isArray(rv) ? rv : [ rv ];
       }
     });
 };

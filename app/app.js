@@ -9,11 +9,7 @@ exports = module.exports = function(IoC, gateways, logger) {
       throw err;
     })
     .then(function(service) {
-      var gatewayIfaces = IoC.components(gateways());
-      // TODO: If this comes back empty, or with less than the number of
-      //       supported gateways, error.
-    
-      return Promise.all(gatewayIfaces.map(function(iface) { return iface.create(); } ))
+      return Promise.all(gateways())
         .then(function(gateways) {
           gateways.forEach(function(gateway, i) {
             // Dispatch requests to the service, which in this case is an

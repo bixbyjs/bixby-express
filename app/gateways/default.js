@@ -1,8 +1,8 @@
-exports = module.exports = function() {
+exports = module.exports = function(IoC) {
   
   return function() {
-    return 'http://i.bixbyjs.org/http/Server';
+    return IoC.create('http://i.bixbyjs.org/http/Server');
   };
 };
 
-exports['@require'] = [];
+exports['@require'] = [ '!container' ];
