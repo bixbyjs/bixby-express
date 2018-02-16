@@ -1,6 +1,4 @@
 exports = module.exports = function(IoC, logger) {
-  var normalizePort = require('../lib/utils').normalizePort;
-  
   
   return IoC.create('service')
     .catch(function(err) {
