@@ -6,12 +6,12 @@ exports = module.exports = function(IoC, dfault) {
   
   return Promise.resolve(factory)
     .then(function(factory) {
-      var giComponents = IoC.components('http://i.bixbyjs.org/platform/http/GatewayInitializer');
+      var components = IoC.components('http://i.bixbyjs.org/platform/http/GatewayInitializer');
   
-      return Promise.all(giComponents.map(function(comp) { return comp.create(); } ))
+      return Promise.all(components.map(function(comp) { return comp.create(); } ))
         .then(function(initializers) {
           initializers.forEach(function(initializer, i) {
-            logger.info('Loaded HTTP gateway initializer: ' + giComponents[i].a['@name']);
+            logger.info('Loaded HTTP gateway initializer: ' + components[i].a['@name']);
             factory.use(initializer);
           });
           
