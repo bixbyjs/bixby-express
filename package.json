@@ -34,15 +34,15 @@
       "activity/dispatcher",
       "activity/statestore",
       "activity/statestore/session",
+      "middleware/activity/loadstate",
+      "middleware/activity/fail",
+      "middleware/activity/finish",
       "middleware/authenticate",
-      "middleware/completetask",
       "middleware/cors",
       "middleware/csrfprotection",
       "middleware/errorlogging",
-      "middleware/failtask",
       "middleware/initialize",
       "middleware/logging",
-      "middleware/loadstate",
       "middleware/parse",
       "middleware/parsecookies"
     ]
