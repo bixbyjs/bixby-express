@@ -52,7 +52,8 @@
     "express": "^4.16.2",
     "fluidfactory": "^0.1.0",
     "morgan": "^1.8.2",
-    "passport": "^0.4.0"
+    "passport": "^0.4.0",
+    "utils-merge": "^1.0.1"
   },
   "devDependencies": {
     "make-node": "0.3.x",

@@ -1,18 +1,22 @@
 exports = module.exports = function(authenticator) {
+  var merge = require('utils-merge');
   
-  return function(strategy) {
+  
+  return function(strategy, options) {
     strategy = strategy || 'local'; // TODO: Default to used strategies
     
-    var opts = { failWithError: true, session: false };
+    var _options = { failWithError: true, session: false };
     if (strategy === 'local') {
-      opts.session = true;
+      _options.session = true;
     }
+    
+    merge(_options, options);
     
     //return authenticator.authenticate(strategy, opts);
     // FIXME: Remove the need for initialze middleware.
     return [
       authenticator.initialize(),
-      authenticator.authenticate(strategy, opts)
+      authenticator.authenticate(strategy, _options)
     ];
   };
 };
