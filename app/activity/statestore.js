@@ -1,4 +1,4 @@
-exports = module.exports = function(container) {
+exports = module.exports = function(container, session) {
   var Factory = require('fluidfactory');
   
   
@@ -10,6 +10,8 @@ exports = module.exports = function(container) {
       impls.forEach(function(impl) {
         factory.use(impl);
       });
+      
+      factory.use(session);
     })
     .then(function() {
       return factory.create();
@@ -18,4 +20,7 @@ exports = module.exports = function(container) {
 
 exports['@implements'] = 'http://i.bixbyjs.org/http/workflow/StateStore';
 exports['@singleton'] = true;
-exports['@require'] = [ '!container' ];
+exports['@require'] = [
+  '!container',
+  './statestore/session',
+];

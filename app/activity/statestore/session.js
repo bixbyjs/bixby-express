@@ -7,5 +7,3 @@ exports = module.exports = function() {
     return store;
   };
 };
-
-exports['@implements'] = 'http://i.bixbyjs.org/http/workflow/createStateStoreImpl';

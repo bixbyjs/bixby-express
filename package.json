@@ -33,7 +33,6 @@
       "app",
       "activity/dispatcher",
       "activity/statestore",
-      "activity/statestore/session",
       "middleware/activity/loadstate",
       "middleware/activity/fail",
       "middleware/activity/finish",
