@@ -31,6 +31,9 @@
     "namespace": "http",
     "components": [
       "app",
+      "activity/dispatcher",
+      "activity/statestore",
+      "activity/statestore/session",
       "middleware/authenticate",
       "middleware/completetask",
       "middleware/cors",
