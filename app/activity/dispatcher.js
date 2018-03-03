@@ -1,7 +1,32 @@
-exports = module.exports = function(container, store, logger) {
+exports = module.exports = function(IoC, store, logger) {
   var flowstate = require('flowstate');
   
   var dispatcher = new flowstate.Manager(store);
+  
+  return Promise.resolve(dispatcher)
+    .then(function(dispatcher) {
+      var components = IoC.components('http://i.bixbyjs.org/http/workflow/Activityx');
+      console.log(components)
+    
+      return Promise.all(components.map(function(comp) { return comp.create(); } ))
+        .then(function(plugins) {
+          plugins.forEach(function(plugin, i) {
+            logger.info('Loaded HTTP activity: ' + components[i].a['@name']);
+            //dispatcher.use(create(plugin));
+          });
+        })
+        .then(function() {
+          return dispatcher;
+        });
+    })
+    .then(function(dispatcher) {
+      return dispatcher;
+    });
+  
+  
+  return;
+  
+  
   return dispatcher;
   
   // FIXME: Implement this again, when circular dependecny is fixed
