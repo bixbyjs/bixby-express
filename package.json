@@ -31,11 +31,9 @@
     "namespace": "http",
     "components": [
       "app",
-      "activity/dispatcher",
-      "activity/statestore",
-      "middleware/activity/loadstate",
-      "middleware/activity/fail",
-      "middleware/activity/finish",
+      "middleware/prompt/loadstate",
+      "middleware/prompt/fail",
+      "middleware/prompt/finish",
       "middleware/authenticate",
       "middleware/cors",
       "middleware/csrfprotection",
@@ -43,7 +41,9 @@
       "middleware/initialize",
       "middleware/logging",
       "middleware/parse",
-      "middleware/parsecookies"
+      "middleware/parsecookies",
+      "prompt/dispatcher",
+      "prompt/statestore"
     ]
   },
   "dependencies": {
