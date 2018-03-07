@@ -31,9 +31,7 @@
     "namespace": "http",
     "components": [
       "app",
-      "middleware/prompt/loadstate",
-      "middleware/prompt/fail",
-      "middleware/prompt/finish",
+      "middleware/prompt/flow",
       "middleware/authenticate",
       "middleware/cors",
       "middleware/csrfprotection",
