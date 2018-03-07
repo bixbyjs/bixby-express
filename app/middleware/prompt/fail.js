@@ -10,5 +10,5 @@ exports = module.exports = function(dispatcher) {
 
 exports['@implements'] = 'http://i.bixbyjs.org/http/middleware/failTask';
 exports['@require'] = [
-  'http://i.bixbyjs.org/http/state/Dispatcher'
+  '../../prompt/dispatcher'
 ];
