@@ -6,7 +6,7 @@ exports = module.exports = function(IoC, store, logger) {
   
   return Promise.resolve(dispatcher)
     .then(function(dispatcher) {
-      var components = IoC.components('http://i.bixbyjs.org/http/prompt/Prompt');
+      var components = IoC.components('http://i.bixbyjs.org/http/state/Prompt');
     
       return Promise.all(components.map(function(comp) { return comp.create(); } ))
         .then(function(plugins) {
