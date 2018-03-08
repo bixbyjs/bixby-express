@@ -30,7 +30,6 @@
   "assembly": {
     "namespace": "http",
     "components": [
-      "app",
       "middleware/prompt/flow",
       "middleware/authenticate",
       "middleware/cors",
@@ -40,7 +39,8 @@
       "middleware/logging",
       "middleware/parse",
       "middleware/parsecookies",
-      "state/statestore"
+      "state/statestore",
+      "app"
     ]
   },
   "dependencies": {
