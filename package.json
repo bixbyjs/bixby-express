@@ -39,7 +39,7 @@
       "middleware/logging",
       "middleware/parse",
       "middleware/parsecookies",
-      "state/statestore",
+      "state/store",
       "app"
     ]
   },

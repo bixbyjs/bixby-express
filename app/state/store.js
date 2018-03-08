@@ -41,5 +41,5 @@ exports['@implements'] = 'http://i.bixbyjs.org/http/workflow/StateStore';
 exports['@singleton'] = true;
 exports['@require'] = [
   '!container',
-  './statestore/session',
+  './store/session',
 ];
