@@ -25,8 +25,6 @@ exports = module.exports = function(IoC, store, logger) {
     });
 };
 
-// TODO: Rename this to http/prompt/Dispatcher
-exports['@implements'] = 'http://i.bixbyjs.org/http/state/Dispatcher';
 exports['@singleton'] = true;
 exports['@require'] = [
   '!container',
