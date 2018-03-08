@@ -1,4 +1,4 @@
-exports = module.exports = function(IoC, dfault) {
+exports = module.exports = function(IoC, http) {
   var Factory = require('fluidfactory');
   
   
@@ -15,7 +15,7 @@ exports = module.exports = function(IoC, dfault) {
             factory.use(initializer);
           });
           
-          factory.use(dfault);
+          factory.use(http);
         })
         .then(function() {
           return factory;
@@ -28,4 +28,4 @@ exports = module.exports = function(IoC, dfault) {
     });
 };
 
-exports['@require'] = [ '!container', './gateway/default' ];
+exports['@require'] = [ '!container', './gateway/http' ];
