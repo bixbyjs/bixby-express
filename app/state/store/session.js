@@ -8,8 +8,7 @@ exports = module.exports = function() {
     },
     
     create: function(options) {
-      var store = new flowstate.SessionStore();
-      return store;
+      return new flowstate.SessionStore();
     }
   };
 };

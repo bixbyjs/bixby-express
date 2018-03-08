@@ -9,11 +9,11 @@ exports = module.exports = function(IoC, store, logger) {
       var components = IoC.components('http://i.bixbyjs.org/http/state/Prompt');
     
       return Promise.all(components.map(function(comp) { return comp.create(); } ))
-        .then(function(plugins) {
-          plugins.forEach(function(plugin, i) {
+        .then(function(prompts) {
+          prompts.forEach(function(prompt, i) {
             var name = components[i].a['@name'];
             logger.info('Loaded HTTP prompt: ' + name);
-            dispatcher.use(name, plugin.begin, plugin.resume);
+            dispatcher.use(name, prompt.begin, prompt.resume);
           });
         })
         .then(function() {
