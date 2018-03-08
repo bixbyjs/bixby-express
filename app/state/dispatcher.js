@@ -28,6 +28,6 @@ exports = module.exports = function(IoC, store, logger) {
 exports['@singleton'] = true;
 exports['@require'] = [
   '!container',
-  'http://i.bixbyjs.org/http/workflow/StateStore',
+  'http://i.bixbyjs.org/http/state/Store',
   'http://i.bixbyjs.org/Logger'
 ];
