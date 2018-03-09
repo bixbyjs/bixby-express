@@ -21,6 +21,22 @@ exports = module.exports = function(IoC, store, logger) {
         });
     })
     .then(function(dispatcher) {
+      var components = IoC.components('http://i.bixbyjs.org/http/state/yielder');
+    
+      return Promise.all(components.map(function(comp) { return comp.create(); } ))
+        .then(function(yielders) {
+          yielders.forEach(function(yielder, i) {
+            var resume = components[i].a['@resume']
+              , result = components[i].a['@result']
+            logger.info("Loaded HTTP yielder from '" + result + "' to '" + resume +  "'");
+            dispatcher.transition(resume, result, yielder);
+          });
+        })
+        .then(function() {
+          return dispatcher;
+        });
+    })
+    .then(function(dispatcher) {
       return dispatcher;
     });
 };
