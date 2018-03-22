@@ -16,6 +16,7 @@ exports = module.exports = function(IoC, logger) {
             
             // TODO: Improve how the path is determined, if it is not annotated
             //  ie, package namespace, etc
+            // only prefix path if more than one service is present, otherwise use root
             
             logger.info('Loaded HTTP service: ' + path);
             if (path) {

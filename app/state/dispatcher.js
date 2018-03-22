@@ -6,13 +6,13 @@ exports = module.exports = function(IoC, store, logger) {
   
   return Promise.resolve(dispatcher)
     .then(function(dispatcher) {
-      var components = IoC.components('http://i.bixbyjs.org/http/state/Prompt');
+      var components = IoC.components('http://i.bixbyjs.org/http/state/State');
     
       return Promise.all(components.map(function(comp) { return comp.create(); } ))
         .then(function(prompts) {
           prompts.forEach(function(prompt, i) {
             var name = components[i].a['@name'];
-            logger.info('Loaded HTTP prompt: ' + name);
+            logger.info('Loaded HTTP state: ' + name);
             dispatcher.use(name, prompt.begin, prompt.resume);
           });
         })
@@ -28,7 +28,7 @@ exports = module.exports = function(IoC, store, logger) {
           yielders.forEach(function(yielder, i) {
             var resume = components[i].a['@resume']
               , result = components[i].a['@result']
-            logger.info("Loaded HTTP yielder from '" + result + "' to '" + resume +  "'");
+            logger.info("Loaded HTTP state yielder from '" + result + "' to '" + resume +  "'");
             dispatcher.transition(resume, result, yielder);
           });
         })
