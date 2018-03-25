@@ -13,7 +13,7 @@ exports = module.exports = function(IoC, store, logger) {
           prompts.forEach(function(prompt, i) {
             var name = components[i].a['@name'];
             logger.info('Loaded HTTP state: ' + name);
-            dispatcher.use(name, prompt.begin, prompt.resume);
+            dispatcher.use(name, prompt.begin, prompt.resume, prompt.finish);
           });
         })
         .then(function() {
