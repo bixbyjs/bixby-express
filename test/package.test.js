@@ -9,8 +9,8 @@ describe('bixby-express', function() {
       expect(json.assembly.namespace).to.equal('http');
       
       expect(json.assembly.components).to.have.length(11);
-      expect(json.assembly.components).to.include('middleware/state/flow');
       expect(json.assembly.components).to.include('middleware/authenticate');
+      expect(json.assembly.components).to.include('middleware/ceremony');
       expect(json.assembly.components).to.include('middleware/cors');
       expect(json.assembly.components).to.include('middleware/csrfprotection');
       expect(json.assembly.components).to.include('middleware/errorlogging');

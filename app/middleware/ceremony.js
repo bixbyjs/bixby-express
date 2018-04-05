@@ -5,7 +5,6 @@ exports = module.exports = function(dispatcher) {
   };
 };
 
-// TODO: rename this to ceremony
 exports['@implements'] = 'http://i.bixbyjs.org/http/middleware/ceremony';
 exports['@require'] = [
   '../../state/dispatcher'

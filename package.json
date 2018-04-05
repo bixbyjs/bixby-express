@@ -30,8 +30,8 @@
   "assembly": {
     "namespace": "http",
     "components": [
-      "middleware/state/flow",
       "middleware/authenticate",
+      "middleware/ceremony",
       "middleware/cors",
       "middleware/csrfprotection",
       "middleware/errorlogging",
