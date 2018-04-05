@@ -7,5 +7,5 @@ exports = module.exports = function(dispatcher) {
 
 exports['@implements'] = 'http://i.bixbyjs.org/http/middleware/ceremony';
 exports['@require'] = [
-  '../../state/dispatcher'
+  '../state/dispatcher'
 ];
