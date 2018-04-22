@@ -6,14 +6,14 @@ exports = module.exports = function(IoC, store, logger) {
   
   return Promise.resolve(dispatcher)
     .then(function(dispatcher) {
-      var components = IoC.components('http://i.bixbyjs.org/http/state/State');
+      var components = IoC.components('http://i.bixbyjs.org/http/ceremony/Prompt');
     
       return Promise.all(components.map(function(comp) { return comp.create(); } ))
         .then(function(prompts) {
           prompts.forEach(function(prompt, i) {
             var name = components[i].a['@name'];
-            logger.info('Loaded HTTP state: ' + name);
-            dispatcher.use(name, prompt.begin, prompt.resume, prompt.finish);
+            logger.info('Loaded HTTP ceremony prompt: ' + name);
+            dispatcher.use(name, prompt);
           });
         })
         .then(function() {
@@ -21,15 +21,15 @@ exports = module.exports = function(IoC, store, logger) {
         });
     })
     .then(function(dispatcher) {
-      var components = IoC.components('http://i.bixbyjs.org/http/state/yielder');
+      var components = IoC.components('http://i.bixbyjs.org/http/ceremony/Yield');
     
       return Promise.all(components.map(function(comp) { return comp.create(); } ))
         .then(function(yielders) {
           yielders.forEach(function(yielder, i) {
-            var resume = components[i].a['@resume']
-              , result = components[i].a['@result']
-            logger.info("Loaded HTTP state yielder from '" + result + "' to '" + resume +  "'");
-            dispatcher.transition(resume, result, yielder);
+            var to = components[i].a['@state']
+              , from = components[i].a['@result']
+            logger.info("Loaded HTTP ceremony yield from '" + from + "' to '" + to +  "'");
+            dispatcher.yield(to, from, yielder);
           });
         })
         .then(function() {
