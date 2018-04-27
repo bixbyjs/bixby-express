@@ -11,19 +11,15 @@ exports = module.exports = function(IoC, logger) {
       return Promise.all(components.map(function(comp) { return comp.create(); } ))
         .then(function(srvs) {
           srvs.forEach(function(srv, i) {
-            var component = components[i]
-              , path = component.a['@path'];
+            var component = components[i];
             
             // TODO: Improve how the path is determined, if it is not annotated
             //  ie, package namespace, etc
             // only prefix path if more than one service is present, otherwise use root
             
-            logger.info('Loaded HTTP service: ' + path);
-            if (path) {
-              service.use(path, srv);
-            } else {
-              service.use(srv);
-            }
+            logger.info('Loaded HTTP service: ' + component.a['@implements']);
+            service.use(srv);
+
           });
         })
         .then(function() {
