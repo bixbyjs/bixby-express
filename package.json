@@ -39,6 +39,7 @@
       "middleware/logging",
       "middleware/parse",
       "middleware/parsecookies",
+      "middleware/session",
       "state/store",
       "app"
     ]
@@ -49,6 +50,7 @@
     "cors": "^2.8.1",
     "csurf": "^1.9.0",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
     "fluidfactory": "^0.1.0",
     "morgan": "^1.8.2",
     "passport": "^0.4.0",
