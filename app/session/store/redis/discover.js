@@ -1,13 +1,14 @@
 exports = module.exports = function(sd) {
   
   return function(cb) {
-    console.log('DISCOVER REDIS?');
-    
     sd.resolve('_session-redis._tcp', function(err, records) {
-      console.log('RESOLVED!');
-      console.log(err)
-      console.log(records)
+      if (err) { return cb(err); }
       
+      records = records.map(function(rec) {
+        return {
+          url: 'redis://' + rec.name
+        };
+      });
       cb(err, records);
     });
   }

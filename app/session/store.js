@@ -1,4 +1,6 @@
 exports = module.exports = function(IoC, logger) {
+  var uri = require('url');
+  
   
   return Promise.resolve()
     .then(function() {
@@ -17,21 +19,41 @@ exports = module.exports = function(IoC, logger) {
               logger.debug('Discovering HTTP session service via ' + components[i].a['@type']);
               func(function(err, records) {
                 // TODO: Error handling.
+                console.log(err);
                 
                 if (!records) { return iter(i + 1); }
+                return resolve(records);
               });
             })(0);
           });
         });
     })
-    .then(function() {
-      // TODO: Only when NODE_ENV is set to development
+    .then(function(records) {
       
-      return IoC.create('./store/memory');
+      
+      if (!records) {
+        // TODO: Only when NODE_ENV is set to development
+        return IoC.create('./store/memory');
+      }
+      
+      var record = records[0];
+      var url = uri.parse(record.url);
+      var protocol = url.protocol.slice(0, -1);
+      
+      
+      var components = IoC.components('http://i.bixbyjs.org/http/session/Store')
+        , component, i, len;
+      
+      for (i = 0, len = components.length; i < len; ++i) {
+        component = components[i];
+        if (component.a['@protocol'] == protocol) {
+          return component.create();
+        }
+      }
     });
 };
 
-exports['@implements'] = 'http://i.bixbyjs.org/http/session/Store';
+//exports['@implements'] = 'http://i.bixbyjs.org/http/session/Store';
 exports['@singleton'] = true;
 exports['@require'] = [
   '!container',

@@ -41,6 +41,7 @@
       "middleware/parsecookies",
       "middleware/session",
       "session/store/redis/discover",
+      "session/store/redis/store",
       "state/store",
       "app"
     ]
