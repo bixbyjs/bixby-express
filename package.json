@@ -40,6 +40,7 @@
       "middleware/parse",
       "middleware/parsecookies",
       "middleware/session",
+      "session/store/redis/discover",
       "state/store",
       "app"
     ]
