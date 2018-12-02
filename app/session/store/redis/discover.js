@@ -1,7 +1,7 @@
 exports = module.exports = function(sd) {
   
   return function(cb) {
-    sd.resolve('_session-redis._tcp', function(err, records) {
+    sd.resolve('_session-redis._tcp', 'SRV', function(err, records) {
       if (err) { return cb(err); }
       
       records = records.map(function(rec) {
