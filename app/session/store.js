@@ -39,21 +39,10 @@ exports = module.exports = function(IoC, logger) {
         });
     })
     .then(function createStore(records) {
-      
-      
-      /*
-      if (!records) {
-        // TODO: Only when NODE_ENV is set to development
-        return IoC.create('./store/memory');
-      }
-      */
-      
-      var record = records[0];
-      var url = uri.parse(record.url);
-      var protocol = url.protocol.slice(0, -1);
-      
-      
       var components = IoC.components('http://i.bixbyjs.org/http/session/Store')
+        , record = records[0]
+        , url = uri.parse(record.url)
+        , protocol = url.protocol.slice(0, -1)
         , component, i, len;
       
       for (i = 0, len = components.length; i < len; ++i) {
