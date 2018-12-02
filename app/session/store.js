@@ -47,7 +47,7 @@ exports = module.exports = function(IoC, logger) {
       for (i = 0, len = components.length; i < len; ++i) {
         component = components[i];
         if (component.a['@protocol'] == protocol) {
-          return component.create();
+          return component.create({ url: record.url });
         }
       }
     });
