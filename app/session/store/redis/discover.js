@@ -11,7 +11,7 @@ exports = module.exports = function(sd) {
       });
       cb(err, records);
     });
-  }
+  };
 };
 
 exports['@implements'] = 'http://i.bixbyjs.org/http/session/StoreServiceDiscoverFunc';
