@@ -3,7 +3,7 @@ exports = module.exports = function(IoC, logger) {
   
   return Promise.resolve()
     .then(function discoverService() {
-      var components = IoC.components('http://i.bixbyjs.org/http/session/StoreServiceDiscoverFunc');
+      var components = IoC.components('http://i.bixbyjs.org/http/session/StoreDiscoverFunc');
   
       return Promise.all(components.map(function(c) { return c.create(); } ))
         .then(function(funcs) {

@@ -14,7 +14,7 @@ exports = module.exports = function(sd) {
   };
 };
 
-exports['@implements'] = 'http://i.bixbyjs.org/http/session/StoreServiceDiscoverFunc';
+exports['@implements'] = 'http://i.bixbyjs.org/http/session/StoreDiscoverFunc';
 exports['@type'] = 'redis';
 exports['@require'] = [
   'http://i.bixbyjs.org/sd'
