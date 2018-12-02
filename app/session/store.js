@@ -39,6 +39,9 @@ exports = module.exports = function(IoC, logger) {
         });
     })
     .then(function createStore(records) {
+      // Iterate over the available components that support the HTTP session
+      // store interface, and create one that is compatible with the protocol
+      // found via service discovery.
       var components = IoC.components('http://i.bixbyjs.org/http/session/Store')
         , record = records[0]
         , url = uri.parse(record.url)
@@ -51,6 +54,8 @@ exports = module.exports = function(IoC, logger) {
           return component.create({ url: record.url });
         }
       }
+      
+      // TODO: Throw an error.
     })
     .catch(function createDevelopmentStoreIfOK(err) {
       if (err !== 'ENOTFOUND') { throw err; }
