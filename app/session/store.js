@@ -43,7 +43,7 @@ exports = module.exports = function(IoC, logger) {
         , ctx = args[1] || {};
       
       // Iterate over the available components that support the HTTP session
-      // store interface, and create one that is compatible with the service
+      // store interface, and create one that is compatible with the protocol
       // found via service discovery.
       var components = IoC.components('http://i.bixbyjs.org/http/session/Store')
         , rec = records[0]
