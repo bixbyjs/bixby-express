@@ -53,6 +53,8 @@ exports = module.exports = function(IoC, logger) {
       for (i = 0, len = components.length; i < len; ++i) {
         component = components[i];
         if (component.a['@service'] == ctx.service && component.a['@protocol'] == ctx.protocol) {
+          logger.debug('Connecting to HTTP session store via ' + ctx.service);
+
           if (rec.url) {
             url = uri.parse(rec.url);
             scheme = url.protocol.slice(0, -1);
@@ -72,6 +74,7 @@ exports = module.exports = function(IoC, logger) {
         throw new Error('Unable to create HTTP session store');
       }
       
+      logger.notice('Using in-memory HTTP session store for development');
       return IoC.create('./store/memory');
     });
 };
