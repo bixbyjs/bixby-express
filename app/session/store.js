@@ -20,7 +20,7 @@ exports = module.exports = function(IoC, logger) {
                 return reject('ENOTFOUND');
               }
           
-              logger.debug('Discovering HTTP session service via ' + components[i].a['@type']);
+              logger.debug('Discovering HTTP session store via ' + components[i].a['@type']);
               func(function(err, records) {
                 if (err && err.code == 'ENOTFOUND') {
                   // Unable to locate a service of this particular type.
