@@ -20,7 +20,7 @@ exports = module.exports = function(IoC, logger) {
                 return reject('ENOTFOUND');
               }
           
-              logger.debug('Discovering HTTP session store via ' + components[i].a['@type']);
+              logger.debug('Discovering HTTP session store via ' + components[i].a['@service']);
               func(function(err, records) {
                 if (err && err.code == 'ENOTFOUND') {
                   // Unable to locate a service of this particular type.
@@ -50,7 +50,7 @@ exports = module.exports = function(IoC, logger) {
       
       for (i = 0, len = components.length; i < len; ++i) {
         component = components[i];
-        if (component.a['@protocol'] == protocol) {
+        if (component.a['@service'] == protocol) {
           return component.create({ url: record.url });
         }
       }
