@@ -16,6 +16,7 @@ exports = module.exports = function(sd) {
 
 exports['@implements'] = 'http://i.bixbyjs.org/http/session/StoreDiscoverFunc';
 exports['@service'] = 'connect-redis';
+exports['@protocol']  = 'tcp';
 exports['@require'] = [
   'http://i.bixbyjs.org/sd'
 ];

@@ -8,6 +8,7 @@ exports = module.exports = function(url) {
 
 exports['@implements'] = 'http://i.bixbyjs.org/http/session/Store';
 exports['@service'] = 'connect-redis';
+exports['@protocol']  = 'tcp';
 exports['@require'] = [
   ':url'
 ];
