@@ -10,21 +10,22 @@ exports = module.exports = function(IoC, logger) {
           return new Promise(function(resolve, reject) {
             
             // Iterate over each of the `discover` functions, attempting to
-            // locate a service capable of storing HTTP sessions.
+            // locate an HTTP session store via supported protocols.
             (function iter(i) {
               var func = funcs[i];
               if (!func) {
                 // Reject with `ENOTFOUND`, causing a jump to the next catch
                 // function.  This function will attempt to create a suitable
-                // store based on the host environment.
+                // session store based on the host environment.
                 return reject('ENOTFOUND');
               }
           
               logger.debug('Discovering HTTP session store via ' + components[i].a['@service']);
               func(function(err, records, ctx) {
                 if (err && err.code == 'ENOTFOUND') {
-                  // Unable to locate a service using this particular protocol.
-                  // Continue discovery using remaining supported protocols.
+                  // Unable to locate a session store using this particular
+                  // protocol.  Continue discovery using remaining supported
+                  // protocols.
                   return iter(i + 1);
                 } else if (err) {
                   return reject(err);
@@ -43,8 +44,8 @@ exports = module.exports = function(IoC, logger) {
         , ctx = args[1] || {};
       
       // Iterate over the available components that support the HTTP session
-      // store interface, and create one that is compatible with the protocol
-      // found via service discovery.
+      // store interface, and create an instance that is compatible with the
+      // protocol found via service discovery.
       var components = IoC.components('http://i.bixbyjs.org/http/session/Store')
         , rec = records[0]
         , component, i, len
