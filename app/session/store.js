@@ -23,8 +23,8 @@ exports = module.exports = function(IoC, logger) {
               logger.debug('Discovering HTTP session store via ' + components[i].a['@service']);
               func(function(err, records, ctx) {
                 if (err && err.code == 'ENOTFOUND') {
-                  // Unable to locate a service of this particular type.
-                  // Continue discovery using remaining supported service types.
+                  // Unable to locate a service using this particular protocol.
+                  // Continue discovery using remaining supported protocols.
                   return iter(i + 1);
                 } else if (err) {
                   return reject(err);
