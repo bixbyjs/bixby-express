@@ -21,7 +21,7 @@ exports = module.exports = function(IoC, logger) {
               }
           
               logger.debug('Discovering HTTP session store via ' + components[i].a['@service']);
-              func(function(err, records) {
+              func(function(err, records, ctx) {
                 if (err && err.code == 'ENOTFOUND') {
                   // Unable to locate a service of this particular type.
                   // Continue discovery using remaining supported service types.
@@ -31,27 +31,35 @@ exports = module.exports = function(IoC, logger) {
                 }
                 
                 if (!records) { return iter(i + 1); }
-                return resolve(records);
+                return resolve([records, ctx]);
               });
             })(0);
             
           });
         });
     })
-    .then(function createStore(records) {
+    .then(function createStore(args) {
+      var records = args[0]
+        , ctx = args[1] || {};
+      
       // Iterate over the available components that support the HTTP session
-      // store interface, and create one that is compatible with the protocol
+      // store interface, and create one that is compatible with the service
       // found via service discovery.
       var components = IoC.components('http://i.bixbyjs.org/http/session/Store')
-        , record = records[0]
-        , url = uri.parse(record.url)
-        , protocol = url.protocol.slice(0, -1)
-        , component, i, len;
+        , rec = records[0]
+        , component, i, len
+        , url, scheme;
       
       for (i = 0, len = components.length; i < len; ++i) {
         component = components[i];
-        if (component.a['@service'] == protocol) {
-          return component.create({ url: record.url });
+        if (component.a['@service'] == ctx.service && component.a['@protocol'] == ctx.protocol) {
+          if (rec.url) {
+            url = uri.parse(rec.url);
+            scheme = url.protocol.slice(0, -1);
+            if (component.a['@uri-scheme'] == scheme) {
+              return component.create({ url: rec.url });
+            }
+          }
         }
       }
       
