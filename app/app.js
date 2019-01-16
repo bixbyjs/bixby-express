@@ -20,7 +20,7 @@ exports = module.exports = function(IoC, logger) {
     });
 };
 
-exports['@implements'] = 'http://i.bixbyjs.org/Main';
+exports['@implements'] = 'http://i.bixbyjs.org/main';
 exports['@singleton'] = true;
 exports['@require'] = [
   '!container',
