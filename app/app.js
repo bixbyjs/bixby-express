@@ -1,6 +1,6 @@
 exports = module.exports = function(IoC, logger) {
   
-  return IoC.create('service')
+  return IoC.create('app/service')
     .catch(function(err) {
       // TODO: Check that the error is failure to create app/service
       return IoC.create('./service');
