@@ -1,8 +1,9 @@
-exports = module.exports = function(IoC, logger) {
+exports = module.exports = function(IoC, logging, logger) {
   var express = require('express');
   
   
   var service = express();
+  service.use(logging());
   
   return Promise.resolve(service)
     .then(function(service) {
@@ -18,10 +19,13 @@ exports = module.exports = function(IoC, logger) {
             //  ie, package namespace, etc
             // only prefix path if more than one service is present, otherwise use root
             
-            logger.info('Loaded HTTP service: ' + path);
-            if (path) {
+            if (srvs.length > 1) {
+              // TODO: generate random path, if not specified
+              
+              logger.debug('Mounted HTTP service "' + component.id + '" at "' + path + '"');
               service.use(path, srv);
             } else {
+              logger.debug('Mounted HTTP service "' + component.id + '" at "/"');
               service.use(srv);
             }
           });
@@ -37,5 +41,6 @@ exports = module.exports = function(IoC, logger) {
 
 exports['@require'] = [
   '!container',
+  'http://i.bixbyjs.org/http/middleware/logging',
   'http://i.bixbyjs.org/Logger'
 ];

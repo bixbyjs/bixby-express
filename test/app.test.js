@@ -10,7 +10,7 @@ describe('app', function() {
   });
   
   it('should be annotated', function() {
-    expect(factory['@implements']).to.equal('http://i.bixbyjs.org/Main');
+    expect(factory['@implements']).to.equal('http://i.bixbyjs.org/main');
     expect(factory['@singleton']).to.equal(true);
   });
   
