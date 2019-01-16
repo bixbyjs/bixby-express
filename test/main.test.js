@@ -1,9 +1,9 @@
 /* global describe, it, expect */
 
-var factory = require('../app/app');
+var factory = require('../app/main');
 
 
-describe('app', function() {
+describe('main', function() {
   
   it('should export factory function', function() {
     expect(factory).to.be.a('function');

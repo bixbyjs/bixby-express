@@ -9,7 +9,7 @@ exports = module.exports = function(IoC, logging, logger) {
     .then(function(service) {
       var components = IoC.components('http://i.bixbyjs.org/http/Service');
   
-      return Promise.all(components.map(function(comp) { return comp.create(); } ))
+      return Promise.all(components.map(function(component) { return component.create(); } ))
         .then(function(srvs) {
           srvs.forEach(function(srv, i) {
             var component = components[i]

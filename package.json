@@ -30,6 +30,7 @@
   "assembly": {
     "namespace": "http",
     "components": [
+      "main",
       "middleware/authenticate",
       "middleware/ceremony",
       "middleware/cors",
@@ -42,8 +43,7 @@
       "middleware/session",
       "session/store/redis/discover",
       "session/store/redis/store",
-      "state/store",
-      "app"
+      "state/store"
     ]
   },
   "dependencies": {
