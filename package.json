@@ -61,9 +61,9 @@
   },
   "devDependencies": {
     "make-node": "0.3.x",
-    "mocha": "2.x.x",
-    "chai": "3.x.x",
-    "proxyquire": "~1.0.1"
+    "proxyquire": "^2.1.0",
+    "mocha": "^6.1.4",
+    "chai": "^4.2.0"
   },
   "engines": {
     "node": "*"
