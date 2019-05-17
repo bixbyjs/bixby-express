@@ -1,5 +1,8 @@
 /* global describe, it, expect */
 
+var sinon = require('sinon');
+
+
 describe('bixby-express', function() {
   
   describe('package.json', function() {
@@ -30,4 +33,8 @@ describe('bixby-express', function() {
     }).to.throw(Error).with.property('code', 'MODULE_NOT_FOUND');
   });
   
+});
+
+afterEach(function() {
+  sinon.restore();
 });
