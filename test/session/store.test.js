@@ -14,7 +14,14 @@ describe('session/store', function() {
     create: function(){}
   };
   var _logger = {
-    notice: function(){}
+    emergency: function(){},
+    alert: function(){},
+    critical: function(){},
+    error: function(){},
+    warning: function(){},
+    notice: function(){},
+    info: function(){},
+    debug: function(){}
   };
   
   beforeEach(function() {
@@ -42,7 +49,7 @@ describe('session/store', function() {
       expect(_connect).to.have.been.calledWith([ 'sessions-mongodb' ]);
       expect(store).to.be.an.instanceof(MockSessionStore);
       done();
-    }, done);
+    }).catch(done);
   }); // should resolve with session store found via service discovery
   
   it('should resolve with memory store as last resort in development environment', function(done) {
