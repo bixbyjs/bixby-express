@@ -50,7 +50,7 @@
     "cors": "^2.8.1",
     "csurf": "^1.9.0",
     "express": "^4.16.2",
-    "express-session": "^1.15.6",
+    "express-session": "^1.16.1",
     "fluidfactory": "^0.1.0",
     "morgan": "^1.8.2",
     "passport": "^0.4.0",
@@ -60,7 +60,9 @@
     "make-node": "0.3.x",
     "proxyquire": "^2.1.0",
     "mocha": "^6.1.4",
-    "chai": "^4.2.0"
+    "chai": "^4.2.0",
+    "sinon": "^7.3.2",
+    "sinon-chai": "^3.3.0"
   },
   "engines": {
     "node": "*"
