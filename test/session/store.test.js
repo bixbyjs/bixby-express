@@ -45,7 +45,7 @@ describe('session/store', function() {
     }, done);
   }); // should resolve with session store found via service discovery
   
-  it('should resolve with memory store in development environment', function(done) {
+  it('should resolve with memory store as last resort in development environment', function(done) {
     var error = new Error('querySrv ENOTFOUND _sessions.local');
     error.code = 'ENOTFOUND';
     var _connect = sinon.stub().yieldsAsync(error);
@@ -59,6 +59,6 @@ describe('session/store', function() {
       expect(store).to.be.an.instanceof(MemoryStore);
       done();
     }).catch(done);
-  }); // should resolve with session store found via service discovery
+  }); // should resolve with memory store as last resort in development environment
   
 }); // session/store
