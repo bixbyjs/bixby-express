@@ -11,6 +11,7 @@ describe('session/store', function() {
   var NODE_ENV;
   
   var _container = {
+    components: function(){},
     create: function(){}
   };
   var _logger = {
@@ -42,18 +43,20 @@ describe('session/store', function() {
   });
   
   it('should resolve with session store found via service discovery', function(done) {
+    sinon.stub(_container, 'components').returns([ { a: { '@name': 'sessions-mock' } } ]);
     var _connect = sinon.stub().yieldsAsync(null, new MockSessionStore());
     
-    var promise = factory(null, _connect, null);
+    var promise = factory(_container, _connect, _logger);
     promise.then(function(store) {
-      expect(_connect).to.have.been.calledWith([ 'sessions-mongodb' ]);
+      expect(_connect).to.have.been.calledWith([ 'sessions-mock' ]);
       expect(store).to.be.an.instanceof(MockSessionStore);
       done();
     }).catch(done);
   }); // should resolve with session store found via service discovery
   
   it('should resolve with memory store as last resort in development environment', function(done) {
-    var error = new Error('querySrv ENOTFOUND _sessions.local');
+    sinon.stub(_container, 'components').returns([ { a: { '@name': 'sess-redis' } } ]);
+    var error = new Error('querySrv ENOTFOUND sess-redis');
     error.code = 'ENOTFOUND';
     var _connect = sinon.stub().yieldsAsync(error);
     sinon.stub(_container, 'create').returns(new MemoryStore());
@@ -61,7 +64,7 @@ describe('session/store', function() {
     process.env.NODE_ENV = 'development';
     var promise = factory(_container, _connect, _logger);
     promise.then(function(store) {
-      expect(_connect).to.have.been.calledWith([ 'sessions-mongodb' ]);
+      expect(_connect).to.have.been.calledWith([ 'sess-redis' ]);
       expect(_container.create).to.have.been.calledOnceWith('./store/memory');
       expect(store).to.be.an.instanceof(MemoryStore);
       done();
