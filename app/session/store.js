@@ -4,13 +4,13 @@ exports = module.exports = function(IoC, connect, logger) {
   
   var promise = new Promise(function(resolve, reject) {
     var modules = IoC.components('http://i.bixbyjs.org/http/ISessionStore')
-      , names = modules.map(function(m) { return m.a['@name']; });
+      , services = modules.map(function(m) { return m.a['@name']; });
     
     // TODO: Introspect container for session service types.
     //var type = 'sess-redis';
     //var type = 'sessions-mongodb';
     
-    connect(names, function(err, conn) {
+    connect(services, function(err, conn) {
       if (err) { reject(err); }
       resolve(conn);
     });
