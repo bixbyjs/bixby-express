@@ -4,7 +4,8 @@ exports = module.exports = function(IoC, connect, logger) {
   
   var promise = new Promise(function(resolve, reject) {
     // TODO: Introspect container for session service types.
-    var type = 'sess-redis';
+    //var type = 'sess-redis';
+    var type = 'sessions-mongodb';
     
     connect([ type ], function(err, conn) {
       if (err) { reject(err); }
@@ -16,8 +17,8 @@ exports = module.exports = function(IoC, connect, logger) {
     .catch(function(err) {
       if (err.code !== 'ENOTFOUND') { throw err; }
       if (process.env.NODE_ENV !== 'development') {
-        // TODO: augment this error with supported protocols, for auto-configuration
-        throw new Error('Unable to create HTTP session store');
+        // TODO: Consider using a cookie-based store here, for stateless sessions
+        throw err;
       }
       
       logger.notice('Using in-memory HTTP session store for development');
