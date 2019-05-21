@@ -48,6 +48,7 @@ describe('session/store', function() {
     
     var promise = factory(_container, _connect, _logger);
     promise.then(function(store) {
+      expect(_container.components).to.have.been.calledWith('http://i.bixbyjs.org/http/ISessionStore');
       expect(_connect).to.have.been.calledWith([ 'sessions-mock' ]);
       expect(store).to.be.an.instanceof(MockSessionStore);
       done();
@@ -64,6 +65,7 @@ describe('session/store', function() {
     process.env.NODE_ENV = 'development';
     var promise = factory(_container, _connect, _logger);
     promise.then(function(store) {
+      expect(_container.components).to.have.been.calledWith('http://i.bixbyjs.org/http/ISessionStore');
       expect(_connect).to.have.been.calledWith([ 'sess-redis' ]);
       expect(_container.create).to.have.been.calledOnceWith('./store/memory');
       expect(store).to.be.an.instanceof(MemoryStore);
