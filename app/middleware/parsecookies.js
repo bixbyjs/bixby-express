@@ -6,3 +6,4 @@ exports = module.exports = function() {
 };
 
 exports['@implements'] = 'http://i.bixbyjs.org/http/middleware/parseCookies';
+exports['@singleton'] = true;
