@@ -36,4 +36,4 @@ describe('middleware/parsecookies', function() {
   
   }); // middleware
   
-});
+}); // middleware/parsecookies

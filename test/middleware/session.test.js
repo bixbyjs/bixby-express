@@ -24,22 +24,10 @@ describe('middleware/session', function() {
     var _keyring = { get: function(){} };
     sinon.stub(_keyring, 'get').yieldsAsync(null, { password: 'keyboard cat' });
     
-    var sessionStub = sinon.stub().returns(function(req, res, next){});
-    var factory = $require('../../app/middleware/session',
-      { 'express-session': sessionStub }
-    );
-    
     var promise = factory(_store, _keyring);
+    expect(_keyring.get).to.have.been.calledOnceWith('www');
+    
     promise.then(function(setup) {
-      //expect(sessionStub).to.have.been.calledOnce;
-      /*
-      expect(sessionStub).to.have.been.calledOnceWithExactly({
-        //store: _store,
-        //resave: false,
-        //saveUninitialized: false,
-        //secret: 'keyboard cat'
-      });
-      */
       expect(setup).to.be.a('function');
       done();
     }).catch(done);
@@ -56,9 +44,7 @@ describe('middleware/session', function() {
     )(_store, _keyring);
     var setup;
     
-    
-    beforeEach(function(done) {
-      console.log('RESOLVE THE PROMISE...');
+    before(function(done) {
       promise.then(function(s) {
         setup = s;
         done();
@@ -78,7 +64,6 @@ describe('middleware/session', function() {
       expect(middleware.length).to.equal(3);
     }); // should create middleware with default options
     
-    
   }); // middleware
   
-});
+}); // middleware/session
