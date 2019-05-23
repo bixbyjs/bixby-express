@@ -1,15 +1,33 @@
-exports = module.exports = function(IoC, store) {
+exports = module.exports = function(store, keyring) {
   
-  // FIXME: Load this dynmaicaly
-  var SECRET = 'keyboard-cat';
+  return new Promise(function(resolve, reject) {
+    var hostname = 'www';
   
-  return function() {
-    return require('express-session')({ secret: SECRET, store: store });
-  };
+    keyring.get(hostname, function(err, cred) {
+      if (err) { return reject(err); }
+      if (!cred) { return reject(new Error("Cannot find credentials for '" + hostname + "'")); }
+  
+      // TODO: set `name` to `sid`
+      // TODO: Detect env and set `proxy` options? (or just leave undefined and defer to express, probably best)
+      // TODO: see if store implements `touch`, and set resave to `true`, if not
+      var opts = {
+        secret: cred.password,
+        store: store,
+        resave: false,
+        saveUninitialized: false
+      };
+      
+      resolve(function() {
+        return require('express-session')(opts);
+      });
+    });
+    
+  }); // new Promise
 };
 
 exports['@implements'] = 'http://i.bixbyjs.org/http/middleware/session';
+exports['@singleton'] = true;
 exports['@require'] = [
-  '!container',
-  '../session/store'
+  '../session/store',
+  'http://i.bixbyjs.org/security/CredentialsStore'
 ];
