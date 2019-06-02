@@ -20,7 +20,7 @@ describe('middleware/parsecookies', function() {
     expect(factory()).to.be.a('function');
   }); // should return setup function
   
-  describe('middleware', function() {
+  describe('setup', function() {
     var cookieParserStub = sinon.stub().returns(function(req, res, next){});
     var setup = $require('../../app/middleware/parsecookies',
       { 'cookie-parser': cookieParserStub }
@@ -34,6 +34,6 @@ describe('middleware/parsecookies', function() {
       expect(middleware.length).to.equal(3);
     }); // should create middleware with default options
   
-  }); // middleware
+  }); // setup
   
 }); // middleware/parsecookies

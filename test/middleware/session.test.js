@@ -55,15 +55,15 @@ describe('middleware/session', function() {
       var middleware = setup();
       
       expect(sessionStub).to.have.been.calledOnceWithExactly({
+        secret: 'keyboard cat',
         store: _store,
         resave: false,
-        saveUninitialized: false,
-        secret: 'keyboard cat'
+        saveUninitialized: false
       });
       expect(middleware).to.be.a('function');
       expect(middleware.length).to.equal(3);
     }); // should create middleware with default options
     
-  }); // middleware
+  }); // setup
   
 }); // middleware/session
