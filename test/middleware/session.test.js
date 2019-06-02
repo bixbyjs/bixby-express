@@ -9,6 +9,11 @@ var factory = require('../../app/middleware/session');
 function MockSessionStore(){};
 
 describe('middleware/session', function() {
+  var _container = {
+    components: function(){},
+    create: function(){}
+  };
+  
   
   it('should export factory function', function() {
     expect(factory).to.be.a('function');
@@ -24,7 +29,7 @@ describe('middleware/session', function() {
     var _keyring = { get: function(){} };
     sinon.stub(_keyring, 'get').yieldsAsync(null, { password: 'keyboard cat' });
     
-    var promise = factory(_store, _keyring);
+    var promise = factory(_container, _store, _keyring);
     expect(_keyring.get).to.have.been.calledOnceWith('www');
     
     promise.then(function(setup) {
@@ -41,7 +46,7 @@ describe('middleware/session', function() {
     var sessionStub = sinon.stub().returns(function(req, res, next){});
     var promise = $require('../../app/middleware/session',
       { 'express-session': sessionStub }
-    )(_store, _keyring);
+    )(_container, _store, _keyring);
     var setup;
     
     before(function(done) {

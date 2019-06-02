@@ -1,4 +1,8 @@
-exports = module.exports = function(store, keyring) {
+exports = module.exports = function(IoC, store, keyring) {
+  if (!store) {
+    // no server side session store, use cookie sessions
+    return IoC.create('./session/cookie');
+  }
   
   return new Promise(function(resolve, reject) {
     var hostname = 'www';
@@ -28,6 +32,7 @@ exports = module.exports = function(store, keyring) {
 exports['@implements'] = 'http://i.bixbyjs.org/http/middleware/session';
 exports['@singleton'] = true;
 exports['@require'] = [
+  '!container',
   '../session/store',
   'http://i.bixbyjs.org/security/CredentialsStore'
 ];
