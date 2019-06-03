@@ -16,24 +16,44 @@ describe('middleware/parsecookies', function() {
     expect(factory['@singleton']).to.equal(true);
   });
   
-  it('should return setup function', function() {
-    expect(factory()).to.be.a('function');
-  }); // should return setup function
+  it('should resolve with setup function', function(done) {
+    var _keyring = { get: function(){} };
+    sinon.stub(_keyring, 'get').yieldsAsync(null, { password: 'keyboard cat' });
+    
+    var promise = factory(_keyring);
+    expect(_keyring.get).to.have.been.calledOnceWith('www');
+    
+    promise.then(function(setup) {
+      expect(setup).to.be.a('function');
+      done();
+    }).catch(done);
+  }); // should resolve with middleware
   
   describe('setup', function() {
-    var cookieParserStub = sinon.stub().returns(function(req, res, next){});
-    var setup = $require('../../app/middleware/parsecookies',
-      { 'cookie-parser': cookieParserStub }
-    )();
+    var _keyring = { get: function(){} };
+    sinon.stub(_keyring, 'get').yieldsAsync(null, { password: 'keyboard cat' });
     
-    it('should create middleware', function() {
+    var cookieParserStub = sinon.stub().returns(function(req, res, next){});
+    var promise = $require('../../app/middleware/parsecookies',
+      { 'cookie-parser': cookieParserStub }
+    )(_keyring);
+    var setup;
+    
+    before(function(done) {
+      promise.then(function(s) {
+        setup = s;
+        done();
+      });
+    });
+    
+    it('should create middleware with default options', function() {
       var middleware = setup();
       
-      expect(cookieParserStub).to.have.been.calledOnceWithExactly();
+      expect(cookieParserStub).to.have.been.calledOnceWithExactly('keyboard cat');
       expect(middleware).to.be.a('function');
       expect(middleware.length).to.equal(3);
     }); // should create middleware with default options
-  
+    
   }); // setup
   
 }); // middleware/parsecookies
