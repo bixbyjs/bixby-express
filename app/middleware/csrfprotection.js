@@ -1,4 +1,4 @@
-exports = module.exports = function(store, session, parseCookies) {
+exports = module.exports = function(session, parseCookies) {
   
   // https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)
   // https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet
@@ -10,11 +10,14 @@ exports = module.exports = function(store, session, parseCookies) {
       //cookie: { signed: true }
     //};
     
+    // TODO: Make this a setting
+    var cookie = true;
+    
     var opts = {};
-    if (!store) { opts.cookie = true; }
+    if (cookie) { opts.cookie = true; }
     
     return [
-      store ? session() : parseCookies(),
+      cookie ? parseCookies() : session(),
       require('csurf')(opts)
     ];
   };
@@ -23,7 +26,6 @@ exports = module.exports = function(store, session, parseCookies) {
 exports['@implements'] = 'http://i.bixbyjs.org/http/middleware/csrfProtection';
 exports['@singleton'] = true;
 exports['@require'] = [
-  '../session/store',
   'http://i.bixbyjs.org/http/middleware/session',
   'http://i.bixbyjs.org/http/middleware/parseCookies'
 ];
