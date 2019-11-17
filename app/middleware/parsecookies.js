@@ -21,5 +21,5 @@ exports = module.exports = function(keyring) {
 exports['@implements'] = 'http://i.bixbyjs.org/http/middleware/parseCookies';
 exports['@singleton'] = true;
 exports['@require'] = [
-  'http://i.bixbyjs.org/security/CredentialsStore'
+  'http://i.bixbyjs.org/security/Keyring'
 ];

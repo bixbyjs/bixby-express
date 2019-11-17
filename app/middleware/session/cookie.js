@@ -26,5 +26,5 @@ exports = module.exports = function(keyring) {
 };
 
 exports['@require'] = [
-  'http://i.bixbyjs.org/security/CredentialsStore'
+  'http://i.bixbyjs.org/security/Keyring'
 ];
