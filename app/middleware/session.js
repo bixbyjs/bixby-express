@@ -34,5 +34,5 @@ exports['@singleton'] = true;
 exports['@require'] = [
   '!container',
   '../session/store',
-  'http://i.bixbyjs.org/security/CredentialsStore'
+  'http://i.bixbyjs.org/security/Keyring'
 ];
