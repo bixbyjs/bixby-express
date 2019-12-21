@@ -6,7 +6,13 @@ exports = module.exports = function(IoC, store, logger) {
   
   return Promise.resolve(dispatcher)
     .then(function(dispatcher) {
-      var components = IoC.components('http://i.bixbyjs.org/http/ceremony/Prompt');
+      // TODO: If any of these prompts have @requires that aren't satisfied, its an error.
+      //       should it be a warning?
+      
+      console.log('CREATE PROMPTS!');
+      //return dispatcher;
+      
+      var components = IoC.components('http://i.bixbyjs.org/http/ceremony/Prompt2');
     
       return Promise.all(components.map(function(comp) { return comp.create(); } ))
         .then(function(prompts) {
@@ -21,7 +27,10 @@ exports = module.exports = function(IoC, store, logger) {
         });
     })
     .then(function(dispatcher) {
-      var components = IoC.components('http://i.bixbyjs.org/http/ceremony/Yield');
+      console.log('CREATE YIELDS!');
+      //return dispatcher;
+      
+      var components = IoC.components('http://i.bixbyjs.org/http/ceremony/Yield2');
     
       return Promise.all(components.map(function(comp) { return comp.create(); } ))
         .then(function(yielders) {

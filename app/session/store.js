@@ -10,6 +10,8 @@ exports = module.exports = function(IoC, connect, logger) {
     //var type = 'sess-redis';
     //var type = 'sessions-mongodb';
     
+    //var services = [ 'x-foo' ];
+    
     connect(services, function(err, conn) {
       if (err) { reject(err); }
       resolve(conn);
@@ -21,7 +23,8 @@ exports = module.exports = function(IoC, connect, logger) {
       if (err.code !== 'ENOTFOUND') { throw err; }
       if (process.env.NODE_ENV !== 'development') {
         // TODO: Consider using a cookie-based store here, for stateless sessions
-        throw err;
+        //throw err;
+        return null;
       }
       
       logger.notice('Using in-memory HTTP session store for development');
@@ -29,7 +32,6 @@ exports = module.exports = function(IoC, connect, logger) {
     });
 };
 
-//exports['@implements'] = 'http://i.bixbyjs.org/http/session/Store';
 exports['@singleton'] = true;
 exports['@require'] = [
   '!container',

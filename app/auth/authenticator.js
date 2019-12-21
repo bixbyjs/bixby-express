@@ -5,8 +5,21 @@ exports = module.exports = function(IoC, logger) {
   
   var authenticator = new passport.Authenticator();
   
+  authenticator.serializeUser(function(user, cb) {
+    console.log('SERIALIZE!!!!');
+    
+    cb(null, user);
+  });
+
+  authenticator.deserializeUser(function(obj, cb) {
+    console.log('DESERIALIZE!!!!');
+    
+    cb(null, obj);
+  });
+  
   return Promise.resolve(authenticator)
     .then(function(authenticator) {
+      
       // Register HTTP authentication schemes.
       var components = IoC.components('http://i.bixbyjs.org/http/auth/Scheme');
       
