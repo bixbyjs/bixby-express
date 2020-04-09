@@ -53,6 +53,7 @@
     "express": "^4.17.1",
     "express-session": "^1.16.1",
     "fluidfactory": "^0.1.0",
+    "flowstate": "git+https://github.com/jaredhanson/flowstate.git#lazy-methods",
     "keygrip": "^1.1.0",
     "morgan": "^1.8.2",
     "passport": "^0.4.0",
