@@ -19,20 +19,34 @@ exports = module.exports = function(IoC, logger) {
   
   return Promise.resolve(authenticator)
     .then(function(authenticator) {
-      
       // Register HTTP authentication schemes.
-      var components = IoC.components('http://i.bixbyjs.org/http/auth/Scheme');
-      
-      return Promise.all(components.map(function(comp) { return comp.create(); } ))
-        .then(function(schemes) {
-          schemes.forEach(function(scheme, i) {
-            authenticator.use(components[i].a['@scheme'] || scheme.name, scheme);
-            logger.info('Loaded HTTP authentication scheme: ' + (components[i].a['@scheme'] || scheme.name));
-          });
-        })
-        .then(function() {
-          return authenticator;
-        });
+      return new Promise(function(resolve, reject) {
+        var components = IoC.components('http://i.bixbyjs.org/http/auth/Scheme');
+        
+        (function iter(i) {
+          var component = components[i];
+          if (!component) {
+            return resolve(authenticator);
+          }
+          
+          component.create()
+            .then(function(scheme) {
+              logger.info('Loaded HTTP authentication scheme: ' + (component.a['@scheme'] || scheme.name));
+              
+              authenticator.use(component.a['@scheme'] || scheme.name, scheme);
+              iter(i + 1);
+            }, function(err) {
+              // TODO: Make this IMPLEMENTATION_NOT_FOUND
+              // TODO: Make the error have the stack of dependencies.
+              if (err.code == 'INTERFACE_NOT_FOUND') {
+                logger.notice(err.message + ' while loading component ' + component.id);
+                return iter(i + 1);
+              }
+              
+              reject(err);
+            })
+        })(0);
+      });
     })
     .then(function(authenticator) {
       // Add session support, if required components are available.
