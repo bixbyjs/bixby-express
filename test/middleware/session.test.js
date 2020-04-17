@@ -30,7 +30,7 @@ describe('middleware/session', function() {
     sinon.stub(_keyring, 'get').yieldsAsync(null, { password: 'keyboard cat' });
     
     var promise = factory(_container, _store, _keyring);
-    expect(_keyring.get).to.have.been.calledOnceWith('www');
+    expect(_keyring.get).to.have.been.calledOnce;
     
     promise.then(function(setup) {
       expect(setup).to.be.a('function');
