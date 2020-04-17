@@ -1,10 +1,8 @@
 exports = module.exports = function(keyring) {
   
   return new Promise(function(resolve, reject) {
-    var hostname = 'www';
-  
     // NOTE: secret will be shared between this and express-session, due to same hostname
-    keyring.get(hostname, function(err, cred) {
+    keyring.get(function(err, cred) {
       if (err) { return reject(err); }
       if (!cred) { return reject(new Error("Cannot find credentials for '" + hostname + "'")); }
       

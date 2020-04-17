@@ -5,9 +5,8 @@ exports = module.exports = function(IoC, store, keyring) {
   }
   
   return new Promise(function(resolve, reject) {
-    var hostname = 'www';
-  
-    keyring.get(hostname, function(err, cred) {
+    
+    keyring.get(function(err, cred) {
       if (err) { return reject(err); }
       if (!cred) { return reject(new Error("Cannot find credentials for '" + hostname + "'")); }
   
