@@ -1,9 +1,9 @@
 /* global describe, it, expect */
 
-var factory = require('../../app/platform/gateways');
+var factory = require('../app/gateway');
 
 
-describe('platform/gateways', function() {
+describe('gateway', function() {
   
   it('should export factory function', function() {
     expect(factory).to.be.a('function');

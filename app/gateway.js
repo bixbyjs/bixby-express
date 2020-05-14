@@ -28,4 +28,4 @@ exports = module.exports = function(IoC, http) {
     });
 };
 
-exports['@require'] = [ '!container', '../gateway/http' ];
+exports['@require'] = [ '!container', './gateway/http' ];
