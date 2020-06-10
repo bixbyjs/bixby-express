@@ -1,3 +1,17 @@
+/**
+ * Main script.
+ *
+ * This component provides a main script that handles HTTP requests using the
+ * Express framework.
+ *
+ * This package provides a default service component which eliminates the
+ * boilerplate typically used in most applications.  It is expected that most
+ * applications will take advantage of this capability.  However, the main
+ * script will preferrentially load an app-specific component, accomodating
+ * applications that need to override the standard boilerplate.
+ *
+ * Once the service is created....
+ */
 exports = module.exports = function(IoC, logger) {
   
   return IoC.create('app/service')
@@ -7,7 +21,7 @@ exports = module.exports = function(IoC, logger) {
       throw err;
     })
     .then(function(service) {
-      return IoC.create('./platform/gateways')
+      return IoC.create('./gateway')
         .then(function(gateways) {
           // TODO: Implement a way to return the annotations, so those
           //       can be used to drive service discovery.
@@ -21,7 +35,6 @@ exports = module.exports = function(IoC, logger) {
 };
 
 exports['@implements'] = 'http://i.bixbyjs.org/main';
-exports['@singleton'] = true;
 exports['@require'] = [
   '!container',
   'http://i.bixbyjs.org/Logger'
