@@ -1,31 +1,27 @@
-exports = module.exports = function(IoC, http) {
-  var Factory = require('fluidfactory');
+exports = module.exports = function(IoC) {
   
-  
-  var factory = new Factory();
-  
-  return Promise.resolve(factory)
-    .then(function(factory) {
-      var components = IoC.components('http://i.bixbyjs.org/platform/http/GatewayInitializer');
-  
-      return Promise.all(components.map(function(comp) { return comp.create(); } ))
-        .then(function(initializers) {
-          initializers.forEach(function(initializer, i) {
-            logger.info('Loaded HTTP gateway initializer: ' + components[i].a['@name']);
-            factory.use(initializer);
-          });
-          
-          factory.use(http);
-        })
-        .then(function() {
-          return factory;
+  return new Promise(function(resolve, reject) {
+    var components = IoC.components('http://i.bixbyjs.org/http/Gateway')
+      , gateways = [];
+    
+    (function iter(i) {
+      var component = components[i];
+      if (!component) {
+        // TODO: If no gateways, reject
+        
+        return resolve(gateways);
+      }
+      
+      component.create()
+        .then(function(gateway) {
+          gateways.push(gateway);
+          iter(i + 1);
+        }, function(err) {
+          console.log('ERROR')
+          console.log(err)
         });
-    })
-    .then(function(factory) {
-      var gateways = factory.create();
-      if (!Array.isArray(gateways)) { gateways = [ gateways ]; }
-      return Promise.all(gateways);
-    });
+    })(0);
+  });
 };
 
-exports['@require'] = [ '!container', './gateway/http' ];
+exports['@require'] = [ '!container' ];
