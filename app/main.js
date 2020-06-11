@@ -16,8 +16,13 @@ exports = module.exports = function(IoC, logger) {
   
   return IoC.create('app/service')
     .catch(function(err) {
-      // TODO: Check that the error is failure to create app/service
-      return IoC.create('./service');
+      // No application-specific service component is provided.  Create the
+      // default service component, which eliminates boilerplate in the
+      // application itself.
+      if (err.code == 'IMPLEMENTATION_NOT_FOUND' && err.interface == 'app/service') {
+        return IoC.create('./service');
+      }
+      
       throw err;
     })
     .then(function(service) {
