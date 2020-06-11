@@ -4,6 +4,8 @@ exports = module.exports = function(IoC) {
     .then(function(server) {
       
       return {
+        on: server.on.bind(server),
+        
         listen: function(cb) {
           // --http-server-address --http-server-port
           // settings.get('http/server/address');
@@ -14,7 +16,7 @@ exports = module.exports = function(IoC) {
             //var addr = this.address();
             //logger.info('HTTP server listening on %s:%d', addr.address, addr.port);
             
-            console.log('SERVER LISTENING!!!');
+            cb && cb();
           });
           
           //var options = settings.get('http/server') || {};
