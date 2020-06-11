@@ -31,7 +31,6 @@
     "namespace": "http",
     "components": [
       "main",
-      "gateway/http",
       "middleware/authenticate",
       "middleware/ceremony",
       "middleware/cors",

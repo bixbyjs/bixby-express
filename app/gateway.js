@@ -7,7 +7,9 @@ exports = module.exports = function(IoC) {
     (function iter(i) {
       var component = components[i];
       if (!component) {
-        // TODO: If no gateways, reject
+        if (gateways.length == 0) {
+          return resolve(Promise.all([ IoC.create('./gateway/http') ]));
+        }
         
         return resolve(gateways);
       }
