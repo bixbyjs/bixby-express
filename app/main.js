@@ -10,7 +10,12 @@
  * script will preferrentially load an app-specific component, accomodating
  * applications that need to override the standard boilerplate.
  *
- * Once the service is created....
+ * Once the service is created, the gateway between the application and the
+ * World Wide Web (WWW) will be instantiated to dispatch requests.  This gateway
+ * is typically an HTTP server upstream from an HTTP proxy in production
+ * environments, or connected to directly in development environments.  However,
+ * depending on configuration or hosting provider, the gateway interface may be
+ * a different protocol such as CGI.
  */
 exports = module.exports = function(IoC, logger) {
   
@@ -28,20 +33,18 @@ exports = module.exports = function(IoC, logger) {
     .then(function(service) {
       return IoC.create('./gateways')
         .then(function(gateways) {
-          
-          
-          // TODO: Implement a way to return the annotations, so those
-          //       can be used to drive service discovery.
-          gateways.forEach(function(gateway, i) {
+          // TODO: Implement a way to extend the express app so that it
+          //       can map between paths and service names, and used to
+          //       announce service in a service registry.
+          gateways.forEach(function(gateway) {
             // Dispatch requests to the service, which in this case is an
             // Express app.
+            gateway.on('request', service);
             
             gateway.listen(function(err) {
               // TODO: log it
               // TODO: service discovery announce
             });
-            
-            gateway.on('request', service);
           });
         });
     });
