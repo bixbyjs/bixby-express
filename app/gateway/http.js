@@ -1,3 +1,25 @@
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+};
+
+/**
+ * HTTP gateway.
+ *
+ * This component provides a gateway that utilizes HTTP as a communication
+ * protocol.
+ */
 exports = module.exports = function(IoC) {
   
   return IoC.create('http://i.bixbyjs.org/http/Server')
@@ -11,17 +33,13 @@ exports = module.exports = function(IoC) {
           //console.log(settings.get('http'));
           
           server.once('listening', function() {
-            //var addr = this.address();
-            //logger.info('HTTP server listening on %s:%d', addr.address, addr.port);
-            
             cb && cb.apply(this);
           });
           
           //var options = settings.get('http/server') || {};
           var options = {};
           var address = options.address;
-          //var port = options.port !== undefined ? options.port : normalizePort(process.env.PORT || 8080);
-          var port = 8080;
+          var port = options.port !== undefined ? options.port : normalizePort(process.env.PORT || 8080);
           
           server.listen(port, address);
         },
