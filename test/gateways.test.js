@@ -1,6 +1,6 @@
 /* global describe, it, expect */
 
-var factory = require('../app/gateway');
+var factory = require('../app/gateways');
 
 
 describe('gateway', function() {

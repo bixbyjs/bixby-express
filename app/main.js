@@ -26,7 +26,7 @@ exports = module.exports = function(IoC, logger) {
       throw err;
     })
     .then(function(service) {
-      return IoC.create('./gateway')
+      return IoC.create('./gateways')
         .then(function(gateways) {
           
           
