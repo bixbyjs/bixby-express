@@ -42,8 +42,9 @@ exports = module.exports = function(IoC, logger) {
             gateway.on('request', service);
             
             gateway.listen(function(err) {
-              // TODO: log it
               // TODO: service discovery announce
+              var addr = this.address();
+              logger.info('HTTP server listening on %s:%d', addr.address, addr.port);
             });
           });
         });

@@ -4,8 +4,6 @@ exports = module.exports = function(IoC) {
     .then(function(server) {
       
       return {
-        on: server.on.bind(server),
-        
         listen: function(cb) {
           // --http-server-address --http-server-port
           // settings.get('http/server/address');
@@ -16,7 +14,7 @@ exports = module.exports = function(IoC) {
             //var addr = this.address();
             //logger.info('HTTP server listening on %s:%d', addr.address, addr.port);
             
-            cb && cb();
+            cb && cb.apply(this);
           });
           
           //var options = settings.get('http/server') || {};
@@ -26,7 +24,10 @@ exports = module.exports = function(IoC) {
           var port = 8080;
           
           server.listen(port, address);
-        }
+        },
+        
+        address: server.address.bind(server),
+        on: server.on.bind(server)
       }
     });
 };
