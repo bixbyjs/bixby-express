@@ -4,19 +4,17 @@
  * This component provides the gateways between the application and the World
  * Wide Web (WWW).
  *
+ * A gateway receives requests which are dispatched to the application for
+ * processing.  By default, this gateway will be an HTTP server which is
+ * connected to directly in a development environment or located upstream from
+ * an HTTP proxy in production environments.  However, depending on the hosting
+ * infrastructure or configuration, the gateway may implement a protocol such as
+ * CGI, FastCGI, or SCGI.
+ *
  * This component introspects the application for any components that implement
- * the HTTP gateway interface and instantiates them, in order to facilitate the
- * dispatching of requests to the application.
- *
- * Depending on the environment and available packages, the communication
- * protocol may be CGI, FastCGI, SCGI, or similar.  By default, and most
- * typically, the communication protocol will be HTTP itself.  In production
- * environments, the application will be upstream from an HTTP proxy which
- * forwards requests to the application via the gateway protocol.
- *
- * Usually only a single gateway interface will be utilized.  However, multiple
- * interfaces can be in use simultanously, in infrastructures that support such
- * functionality.
+ * the HTTP gateway interface and instantiates them.  Usually only a single
+ * gateway will be utilized.  However, multiple gateways can be in use
+ * simultanously, in infrastructures that support such functionality.
  */
 exports = module.exports = function(IoC) {
   

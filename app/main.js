@@ -11,11 +11,8 @@
  * applications that need to override the standard boilerplate.
  *
  * Once the service is created, the gateway between the application and the
- * World Wide Web (WWW) will be instantiated to dispatch requests.  This gateway
- * is typically an HTTP server upstream from an HTTP proxy in production
- * environments, or connected to directly in development environments.  However,
- * depending on configuration or hosting provider, the gateway interface may be
- * a different protocol such as CGI.
+ * World Wide Web (WWW) will be instantiated, and requests received will be
+ * dispatched to the application.
  */
 exports = module.exports = function(IoC, logger) {
   
