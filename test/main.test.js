@@ -98,4 +98,47 @@ describe('main', function() {
     });
   }); // when app provides app-specific site and uses multiple gateways
   
+  describe('when app uses default service', function(done) {
+    var service = sinon.stub(express());
+    
+    var error = new Error('something went wrong');
+    error.code = 'IMPLEMENTATION_NOT_FOUND';
+    error.interface = 'app/service';
+    
+    var gateway = new Object();
+    gateway.on = sinon.spy();
+    gateway.listen = sinon.stub().yieldsOn(gateway);
+    gateway.address = sinon.stub().returns({ address: '127.0.0.1', port: 8080 });
+    
+    var container = new Object();
+    container.create = sinon.stub()
+    container.create.withArgs('app/service').rejects(error);
+    container.create.withArgs('./service').resolves(service);
+    container.create.withArgs('./gateways').resolves([ gateway ]);
+    
+    var logger = new Object();
+    logger.info = sinon.spy();
+    
+    before(function(done) {
+      factory(container, logger).then(done, done);
+    });
+    
+    it('should create site', function() {
+      expect(container.create).to.be.calledThrice;
+      expect(container.create.getCall(0)).to.be.calledWith('app/service');
+      expect(container.create.getCall(1)).to.be.calledWith('./service');
+      expect(container.create.getCall(2)).to.be.calledWith('./gateways');
+    });
+    
+    it('should dispatch requests from gateway', function() {
+      expect(gateway.on).to.be.calledWith('request', service);
+      expect(gateway.listen).to.be.calledOnce;
+    });
+    
+    it('should log', function() {
+      expect(logger.info).to.be.calledOnce;
+      expect(logger.info.getCall(0)).to.be.calledWith('HTTP server listening on %s:%d', '127.0.0.1', 8080);
+    });
+  }); // when app provides app-specific site
+  
 });
