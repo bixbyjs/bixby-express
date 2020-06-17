@@ -36,9 +36,8 @@ exports = module.exports = function(IoC, logger) {
               authenticator.use(component.a['@scheme'] || scheme.name, scheme);
               iter(i + 1);
             }, function(err) {
-              // TODO: Make this IMPLEMENTATION_NOT_FOUND
               // TODO: Make the error have the stack of dependencies.
-              if (err.code == 'INTERFACE_NOT_FOUND') {
+              if (err.code == 'IMPLEMENTATION_NOT_FOUND') {
                 logger.notice(err.message + ' while loading component ' + component.id);
                 return iter(i + 1);
               }
