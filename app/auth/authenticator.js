@@ -36,6 +36,7 @@ exports = module.exports = function(IoC, logger) {
               authenticator.use(component.a['@scheme'] || scheme.name, scheme);
               iter(i + 1);
             }, function(err) {
+              // TODO: Print the package name in the error, so it can be found
               // TODO: Make the error have the stack of dependencies.
               if (err.code == 'IMPLEMENTATION_NOT_FOUND') {
                 logger.notice(err.message + ' while loading component ' + component.id);
