@@ -15,7 +15,7 @@ describe('gateway', function() {
     expect(factory['@implements']).to.equal(undefined);
   });
   
-  describe('when app uses default gateway', function(done) {
+  describe('instantiating default gateway', function(done) {
     var gateways;
     
     var gateway = new Object();
@@ -38,9 +38,9 @@ describe('gateway', function() {
       expect(gateways).to.have.length(1);
       expect(gateways[0]).to.equal(gateway);
     });
-  }); // when app uses default gateway
+  }); // instantiating default gateway
   
-  describe('when gateway components are instantiated', function(done) {
+  describe('instantiating available gateways', function(done) {
     var gateways;
     
     var gateway1 = new Object();
@@ -71,6 +71,6 @@ describe('gateway', function() {
       expect(gateways[0]).to.equal(gateway1);
       expect(gateways[1]).to.equal(gateway2);
     });
-  }); // when gateway components are instantiated
+  }); // instantiating available gateways
   
 });
