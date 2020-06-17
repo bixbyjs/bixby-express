@@ -17,8 +17,14 @@ function normalizePort(val) {
 /**
  * HTTP gateway.
  *
- * This component provides a gateway that utilizes HTTP as a communication
+ * This component provides a gateway that implements HTTP as a communication
  * protocol.
+ *
+ * If no other gateways are provided by available packages, this gateway will
+ * be used by default.  In a development environment, the HTTP server will
+ * receive requests directly.  However, in production environments, the HTTP
+ * server will be mediated by an HTTP proxy (such as Apache or nginx) which
+ * forwards requests from the World Wide Web (WWW) upstream to the application.
  */
 exports = module.exports = function(IoC) {
   
