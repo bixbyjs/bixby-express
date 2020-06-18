@@ -1,5 +1,6 @@
 exports = module.exports = function(IoC, logging, logger) {
-  var express = require('express');
+  var express = require('express')
+    , implementationNotFound = require('../lib/middleware/implementationnotfound');
   
   
   var app = express();
@@ -23,7 +24,6 @@ exports = module.exports = function(IoC, logging, logger) {
             .then(function(service) {
               if (components.length > 1) {
                 // TODO: generate random path, if not specified
-              
                 logger.debug('Mounted HTTP service "' + component.id + '" at "' + path + '"');
                 app.use(path, service);
               } else {
@@ -32,12 +32,21 @@ exports = module.exports = function(IoC, logging, logger) {
               }
               iter(i + 1);
             }, function(err) {
-              // WIP: make a developer error handler that prints the info to the dev when they access this route
-              
               // TODO: Print the package name in the error, so it can be found
               // TODO: Make the error have the stack of dependencies.
               if (err.code == 'IMPLEMENTATION_NOT_FOUND') {
                 logger.notice(err.message + ' while loading component ' + component.id);
+                
+                // TODO: Only mount implNotFound handler in development?
+                
+                if (components.length > 1) {
+                  // TODO: generate random path, if not specified
+                  
+                  app.use(path, implementationNotFound(err));
+                } else {
+                  app.use(implementationNotFound(err));
+                }
+                
                 return iter(i + 1);
               }
               
