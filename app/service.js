@@ -2,40 +2,52 @@ exports = module.exports = function(IoC, logging, logger) {
   var express = require('express');
   
   
-  var service = express();
-  service.use(logging());
+  var app = express();
+  app.use(logging());
   
-  return Promise.resolve(service)
-    .then(function(service) {
-      var components = IoC.components('http://i.bixbyjs.org/http/Service');
-  
-      return Promise.all(components.map(function(component) { return component.create(); } ))
-        .then(function(srvs) {
-          srvs.forEach(function(srv, i) {
-            var component = components[i]
-              , path = component.a['@path'];
-            
-            // TODO: Improve how the path is determined, if it is not annotated
-            //  ie, package namespace, etc
-            // only prefix path if more than one service is present, otherwise use root
-            
-            if (srvs.length > 1) {
-              // TODO: generate random path, if not specified
+  return Promise.resolve(app)
+    .then(function(app) {
+      return new Promise(function(resolve, reject) {
+        var components = IoC.components('http://i.bixbyjs.org/http/Service');
+        
+        (function iter(i) {
+          var component = components[i]
+            , path;
+          if (!component) {
+            return resolve(app);
+          }
+          
+          path = component.a['@path'];
+          
+          component.create()
+            .then(function(service) {
+              if (components.length > 1) {
+                // TODO: generate random path, if not specified
               
-              logger.debug('Mounted HTTP service "' + component.id + '" at "' + path + '"');
-              service.use(path, srv);
-            } else {
-              logger.debug('Mounted HTTP service "' + component.id + '" at "/"');
-              service.use(srv);
-            }
-          });
-        })
-        .then(function() {
-          return service;
-        });
+                logger.debug('Mounted HTTP service "' + component.id + '" at "' + path + '"');
+                app.use(path, service);
+              } else {
+                logger.debug('Mounted HTTP service "' + component.id + '" at "/"');
+                app.use(service);
+              }
+              iter(i + 1);
+            }, function(err) {
+              // WIP: make a developer error handler that prints the info to the dev when they access this route
+              
+              // TODO: Print the package name in the error, so it can be found
+              // TODO: Make the error have the stack of dependencies.
+              if (err.code == 'IMPLEMENTATION_NOT_FOUND') {
+                logger.notice(err.message + ' while loading component ' + component.id);
+                return iter(i + 1);
+              }
+              
+              reject(err);
+            })
+        })(0);
+      });
     })
-    .then(function(service) {
-      return service;
+    .then(function(app) {
+      return app;
     });
 };
 
