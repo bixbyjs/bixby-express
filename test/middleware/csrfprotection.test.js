@@ -16,11 +16,7 @@ describe('middleware/csrfprotection', function() {
     expect(factory['@singleton']).to.equal(true);
   });
   
-  it('should return setup function', function() {
-    expect(factory()).to.be.a('function');
-  }); // should return setup function
-  
-  describe('setup', function() {
+  describe('factory', function() {
     var parseCookiesStub = sinon.stub().returns(function parseCookies(req, res, next){});
     var sessionStub = sinon.stub().returns(function session(req, res, next){});
     
