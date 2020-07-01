@@ -32,10 +32,20 @@ exports = module.exports = function(session, parseCookies) {
     //};
     
     // TODO: Make this a setting
-    var cookie = true;
+    var cookie = false;
     
     var opts = {};
     if (cookie) { opts.cookie = true; }
+    
+    opts.value = function(req) {
+      return (req.body && req.body.csrf_token) ||
+        (req.query && req.query.csrf_token) ||
+        (req.headers['csrf-token']) ||
+        (req.headers['xsrf-token']) ||
+        (req.headers['x-csrf-token']) ||
+        (req.headers['x-xsrf-token']);
+    };
+    
     
     return [
       cookie ? parseCookies() : session(),

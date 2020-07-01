@@ -16,11 +16,11 @@ describe('middleware/csrfprotection', function() {
     expect(factory['@singleton']).to.equal(true);
   });
   
-  describe('factory', function() {
+  describe('creating with defaults', function() {
     var parseCookiesStub = sinon.stub().returns(function parseCookies(req, res, next){});
     var sessionStub = sinon.stub().returns(function session(req, res, next){});
+    var csurfStub = sinon.stub().returns(function csrfProtection(req, res, next){});
     
-    var csurfStub = sinon.stub().returns(function(req, res, next){});
     var setup = $require('../../app/middleware/csrfprotection',
       { 'csurf': csurfStub }
     )(sessionStub, parseCookiesStub);
@@ -28,15 +28,16 @@ describe('middleware/csrfprotection', function() {
     it('should create middleware', function() {
       var middleware = setup();
       
-      expect(parseCookiesStub).to.have.been.calledOnceWithExactly();
-      expect(sessionStub).to.have.not.been.called;
-      expect(csurfStub).to.have.been.calledOnceWithExactly({ cookie: true });
+      expect(parseCookiesStub).to.not.have.been.called;
+      expect(sessionStub).to.have.been.calledOnceWithExactly();
+      //expect(csurfStub).to.have.been.calledOnceWithExactly({});
+      expect(csurfStub).to.have.been.calledOnce;
       expect(middleware).to.be.an('array');
       expect(middleware.length).to.equal(2);
-      expect(middleware[0].name).to.equal('parseCookies');
-      expect(middleware[1].length).to.equal(3);
-    }); // should create middleware with default options
+      expect(middleware[0].name).to.equal('session');
+      expect(middleware[1].name).to.equal('csrfProtection');
+    }); // should create middleware
   
-  }); // setup
+  }); // creating with defaults
   
 }); // middleware/csrfprotection
