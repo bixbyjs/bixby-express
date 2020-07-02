@@ -1,19 +1,13 @@
 /**
  * Cross Site Request Forgery (CSRF) protection middleware.
  *
- * This component provides middleware that protects against [CSRF][1].  CSRF is
- * an attack in which unauthorized actions are executed by a site to which a
- * user is currently authenticated.  CSRF targets state-changing requests, such
- * as updating an account or making a financial transaction.
- *
- * Web browsers include [credentials][2] associated with a domain, including
- * cookies, TLS client certificates, and username and password for HTTP
- * authentication, in any request to that domain.  CSRF attacks exploit this
- * property by tricking the victim into unknowingly submitting a forged request
- * to a site the victim has access to.  This request is initiated from a
- * different site under the control of the attacker, and typically involves
- * embedding an image, a link which the victim clicks, or form which the victim
- * submits.
+ * This component provides middleware that protects against [CSRF][1].  In a
+ * CSRF attack, a malicious site instructs a victim's browser to send a request
+ * to an honest site.  This request includes [credentials][2], such as cookies,
+ * as if it were part of of the victim's interaction with the honest site.  This
+ * attack disrupts the integrity of the victim's session, and targets state-
+ * modifying requests such as updating an account or making a financial
+ * transaction.
  *
  * OWASP provides detailed [information][3] about CSRF, as well as well as
  * [techniques][4] for prevention.
