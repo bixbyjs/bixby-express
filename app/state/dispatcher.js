@@ -10,40 +10,17 @@ exports = module.exports = function(IoC, store, logger) {
       //       should it be a warning?
       
       console.log('CREATE PROMPTS!');
-      //return dispatcher;
+      return dispatcher;
       
-      var components = IoC.components('http://i.bixbyjs.org/http/ceremony/Prompt2');
-    
-      return Promise.all(components.map(function(comp) { return comp.create(); } ))
-        .then(function(prompts) {
-          prompts.forEach(function(prompt, i) {
-            var name = components[i].a['@name'];
-            logger.info('Loaded HTTP ceremony prompt: ' + name);
-            dispatcher.use(name, prompt);
-          });
-        })
-        .then(function() {
-          return dispatcher;
-        });
+      // TODO: Remove .use from flowstate
     })
     .then(function(dispatcher) {
       console.log('CREATE YIELDS!');
-      //return dispatcher;
+      return dispatcher;
       
       var components = IoC.components('http://i.bixbyjs.org/http/ceremony/Yield2');
     
-      return Promise.all(components.map(function(comp) { return comp.create(); } ))
-        .then(function(yielders) {
-          yielders.forEach(function(yielder, i) {
-            var to = components[i].a['@state']
-              , from = components[i].a['@result']
-            logger.info("Loaded HTTP ceremony yield from '" + from + "' to '" + to +  "'");
-            dispatcher.yield(to, from, yielder);
-          });
-        })
-        .then(function() {
-          return dispatcher;
-        });
+      // TODO: remove .yield from flowstate
     })
     .then(function(dispatcher) {
       return dispatcher;
