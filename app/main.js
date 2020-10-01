@@ -38,6 +38,7 @@ exports = module.exports = function(IoC, logger) {
             // Express app.
             gateway.on('request', service);
             
+            // TODO: Remove err from callback signature, and hook up error event
             gateway.listen(function(err) {
               // TODO: service discovery announce
               var addr = this.address();
