@@ -41,7 +41,7 @@ describe('main', function() {
       factory(container, logger).then(done, done);
     });
     
-    it('should create site', function() {
+    it('should create service', function() {
       expect(container.create).to.be.calledThrice;
       expect(container.create.getCall(0)).to.be.calledWith('app/service');
       expect(container.create.getCall(1)).to.be.calledWith('./service');
@@ -53,7 +53,7 @@ describe('main', function() {
       expect(gateway.listen).to.be.calledOnce;
     });
     
-    it('should log', function() {
+    it('should log messages', function() {
       expect(logger.info).to.be.calledOnce;
       expect(logger.info.getCall(0)).to.be.calledWith('HTTP server listening on %s:%d', '127.0.0.1', 8080);
     });
@@ -79,7 +79,7 @@ describe('main', function() {
       factory(container, logger).then(done, done);
     });
     
-    it('should create site', function() {
+    it('should create service', function() {
       expect(container.create).to.be.calledTwice;
       expect(container.create.getCall(0)).to.be.calledWith('app/service');
       expect(container.create.getCall(1)).to.be.calledWith('./gateways');
@@ -90,7 +90,7 @@ describe('main', function() {
       expect(gateway.listen).to.be.calledOnce;
     });
     
-    it('should log', function() {
+    it('should log messages', function() {
       expect(logger.info).to.be.calledOnce;
       expect(logger.info.getCall(0)).to.be.calledWith('HTTP server listening on %s:%d', '127.0.0.1', 8080);
     });
@@ -134,7 +134,7 @@ describe('main', function() {
       expect(gateway2.listen).to.be.calledOnce;
     });
     
-    it('should log', function() {
+    it('should log messages', function() {
       expect(logger.info).to.be.calledTwice;
       expect(logger.info.getCall(0)).to.be.calledWith('HTTP server listening on %s:%d', '127.0.0.1', 8080);
       expect(logger.info.getCall(1)).to.be.calledWith('HTTP server listening on %s:%d', '127.0.0.1', 9000);
