@@ -1,12 +1,15 @@
 exports = module.exports = function(IoC, logging, logger) {
   var express = require('express')
-    , implementationNotFound = require('../lib/middleware/implementationnotfound');
+    , implementationNotFound = require('../lib/middleware/implementationnotfound')
+    , path = require('path');
   
   
   var app = express();
   
+  app.set('views', path.join(path.dirname(require.main.filename), 'app/views'));
   app.set('view engine', 'ejs');
   
+  // TODO: Mount static middleware, if directory exists
   
   app.use(logging());
   
