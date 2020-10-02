@@ -35,6 +35,7 @@ describe('service', function() {
       service1Component,
       service2Component
     ]);
+    container.components.withArgs().returns([]);
     //container.create = sinon.stub()
     //container.create.withArgs('http://i.bixbyjs.org/http/Server').resolves(server);
     

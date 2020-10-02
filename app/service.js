@@ -4,9 +4,38 @@ exports = module.exports = function(IoC, logging, logger) {
   
   
   var app = express();
+  
+  app.set('view engine', 'ejs');
+  
+  
   app.use(logging());
   
   return Promise.resolve(app)
+    .then(function(app) {
+      // Register template engines.
+      return new Promise(function(resolve, reject) {
+        var components = IoC.components('http://i.bixbyjs.org/template/Engine');
+        
+        (function iter(i) {
+          var component = components[i];
+          if (!component) {
+            return resolve(app);
+          }
+        
+          component.create()
+            .then(function(engine) {
+              logger.info('Loaded template engine: ' + component.a['@type']);
+              app.engine(component.a['@type'], engine.renderFile);
+              iter(i + 1);
+            }, function(err) {
+              var msg = 'Failed to load template engine: ' + component.a['@type'] + '\n';
+              msg += err.stack;
+              logger.warning(msg);
+              return iter(i + 1);
+            })
+        })(0);
+      });
+    })
     .then(function(app) {
       return new Promise(function(resolve, reject) {
         var components = IoC.components('http://i.bixbyjs.org/http/Service');
