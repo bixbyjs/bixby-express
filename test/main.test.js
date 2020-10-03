@@ -19,18 +19,18 @@ describe('main', function() {
   describe('when app uses default service', function(done) {
     var service = sinon.stub(express());
     
-    var error = new Error('something went wrong');
-    error.code = 'IMPLEMENTATION_NOT_FOUND';
-    error.interface = 'app/service';
-    
     var gateway = new Object();
     gateway.on = sinon.spy();
     gateway.listen = sinon.stub().yieldsOn(gateway);
     gateway.address = sinon.stub().returns({ address: '127.0.0.1', port: 8080 });
     
+    var error = new Error('something went wrong');
+    error.code = 'IMPLEMENTATION_NOT_FOUND';
+    error.interface = 'app/service';
+    
     var container = new Object();
     container.create = sinon.stub()
-    container.create.withArgs('app/service').rejects(error);
+    container.create.withArgs('app/service', { meta: true }).rejects(error);
     container.create.withArgs('./service').resolves(service);
     container.create.withArgs('./gateways').resolves([ gateway ]);
     
@@ -69,7 +69,7 @@ describe('main', function() {
     
     var container = new Object();
     container.create = sinon.stub()
-    container.create.withArgs('app/service').resolves(service);
+    container.create.withArgs('app/service', { meta: true }).resolves([ service, { a: {} } ]);
     container.create.withArgs('./gateways').resolves([ gateway ]);
     
     var logger = new Object();
@@ -94,7 +94,7 @@ describe('main', function() {
       expect(logger.info).to.be.calledOnce;
       expect(logger.info.getCall(0)).to.be.calledWith('HTTP server listening on %s:%d', '127.0.0.1', 8080);
     });
-  }); // when app provides app-specific site
+  }); // when app provides app-specific service
   
   describe('when app provides app-specific service that fails to be created', function(done) {
     var service = sinon.stub(express());
@@ -106,7 +106,7 @@ describe('main', function() {
     
     var container = new Object();
     container.create = sinon.stub()
-    container.create.withArgs('app/service').rejects(new Error('something went wrong'));
+    container.create.withArgs('app/service', { meta: true }).rejects(new Error('something went wrong'));
     container.create.withArgs('./gateways').resolves([ gateway ]);
     
     var logger = new Object();
@@ -154,7 +154,7 @@ describe('main', function() {
     
     var container = new Object();
     container.create = sinon.stub()
-    container.create.withArgs('app/service').resolves(service);
+    container.create.withArgs('app/service', { meta: true }).resolves([ service, { a: {} } ]);
     container.create.withArgs('./gateways').resolves([ gateway1, gateway2 ]);
     
     var logger = new Object();

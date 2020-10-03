@@ -16,8 +16,18 @@
  */
 exports = module.exports = function(IoC, logger) {
   
-  return IoC.create('app/service')
-    .catch(function(err) {
+  return IoC.create('app/service', { meta: true })
+    .then(function(service) {
+      // The application-specific service component is annotated with a path at
+      // which it it should be mounted.  Create the default service component,
+      // which will mount the application-provided service, as well as eliminate
+      // boilerplate in the application itself.
+      if (service[1].a['@path']) {
+        return IoC.create('./service');
+      }
+      
+      return service[0];
+    }, function(err) {
       // No application-specific service component is provided.  Create the
       // default service component, which eliminates boilerplate in the
       // application itself.
