@@ -1,7 +1,11 @@
 exports = module.exports = function() {
   
   return function() {
-    return require('morgan')('common');
+    var format = 'common';
+    
+    // TODO: Implement setting to select log format, for using combined log format
+    
+    return require('morgan')(format);
   };
 };
 
