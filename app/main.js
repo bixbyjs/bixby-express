@@ -22,7 +22,8 @@ exports = module.exports = function(IoC, logger) {
       // which it it should be mounted.  Create the default service component,
       // which will mount the application-provided service, as well as eliminate
       // boilerplate in the application itself.
-      if (service[1].a['@path']) {
+      if (service[1].implements.indexOf('http://i.bixbyjs.org/http/Service') != -1
+          && service[1].a['@path']) {
         return IoC.create('./service');
       }
       

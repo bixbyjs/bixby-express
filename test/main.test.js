@@ -69,7 +69,10 @@ describe('main', function() {
     
     var container = new Object();
     container.create = sinon.stub()
-    container.create.withArgs('app/service', { meta: true }).resolves([ service, { a: {} } ]);
+    container.create.withArgs('app/service', { meta: true }).resolves([ service, {
+      implements: [],
+      a: {}
+    } ]);
     container.create.withArgs('./gateways').resolves([ gateway ]);
     
     var logger = new Object();
@@ -106,7 +109,10 @@ describe('main', function() {
     
     var container = new Object();
     container.create = sinon.stub()
-    container.create.withArgs('app/service', { meta: true }).resolves([ service, { a: { '@path': '/' } } ]);
+    container.create.withArgs('app/service', { meta: true }).resolves([ service, {
+      implements: [ 'http://i.bixbyjs.org/http/Service'] ,
+      a: { '@path': '/' }
+    } ]);
     container.create.withArgs('./service').resolves(service);
     container.create.withArgs('./gateways').resolves([ gateway ]);
     
@@ -193,7 +199,10 @@ describe('main', function() {
     
     var container = new Object();
     container.create = sinon.stub()
-    container.create.withArgs('app/service', { meta: true }).resolves([ service, { a: {} } ]);
+    container.create.withArgs('app/service', { meta: true }).resolves([ service, {
+      implements: [],
+      a: {}
+    } ]);
     container.create.withArgs('./gateways').resolves([ gateway1, gateway2 ]);
     
     var logger = new Object();
