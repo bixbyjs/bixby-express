@@ -1,4 +1,10 @@
-exports = module.exports = function(IoC, logging, logger) {
+/**
+ * Default service.
+ *
+ * This component provides a default Express app which eliminates the
+ * boilerplate typically used in most applications.
+ */
+exports = module.exports = function(IoC, logging, settings, logger) {
   var express = require('express')
     , implementationNotFound = require('../lib/middleware/implementationnotfound')
     , path = require('path');
@@ -6,8 +12,8 @@ exports = module.exports = function(IoC, logging, logger) {
   
   var app = express();
   
-  app.set('views', path.join(path.dirname(require.main.filename), 'app/views'));
-  app.set('view engine', 'ejs');
+  app.set('views', path.resolve(path.dirname(require.main.filename), settings.get('views/path') || 'app/views'));
+  app.set('view engine', settings.get('views/engine') || 'ejs');
   
   // TODO: Mount static middleware, if directory exists
   
@@ -95,5 +101,6 @@ exports = module.exports = function(IoC, logging, logger) {
 exports['@require'] = [
   '!container',
   'http://i.bixbyjs.org/http/middleware/logging',
+  'http://i.bixbyjs.org/Settings',
   'http://i.bixbyjs.org/Logger'
 ];
