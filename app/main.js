@@ -8,10 +8,10 @@
  * as it eliminates the boilerplate typically found in most Express apps.
  *
  * However, the main script will preferrentially load an application-provided
- * component (at `app/service`), for applications that wish to override the
- * standard boilerplate or use an alternative framework.  This component is
- * expected to provide a function which handles HTTP requests, as defined by
- * Node.js' HTTP [`request` event][2].  For example:
+ * component (at `app/app`), for applications that wish to override the standard
+ * boilerplate or use an alternative framework.  This component is expected to
+ * provide a function which handles HTTP requests, as defined by Node.js' HTTP
+ * [`request` event][2].  For example:
  *
  *     function(req, res) {
  *       res.statusCode = 200;
@@ -28,25 +28,23 @@
  */
 exports = module.exports = function(IoC, logger) {
   
-  return IoC.create('app/service', { meta: true })
+  return IoC.create('app/app', { metadata: true })
     .then(function(service) {
       // The application-specific service component is annotated with a path at
       // which it it should be mounted.  Create the default service component,
       // which will mount the application-provided service, as well as eliminate
       // boilerplate in the application itself.
       
-      // TODO: No need to check for path, just service
-      if (service[1].implements.indexOf('http://i.bixbyjs.org/http/Service') != -1
-          && service[1].a['@path']) {
+      if (service[1].implements.indexOf('http://i.bixbyjs.org/http/Service') != -1) {
         return IoC.create('./service');
       }
       
       return service[0];
     }, function(err) {
       // No application-specific service component is provided.  Create the
-      // default service component, which eliminates boilerplate in the
-      // application itself.
-      if (err.code == 'IMPLEMENTATION_NOT_FOUND' && err.interface == 'app/service') {
+      // default service component, which uses Express and eliminates common
+      // boilerplate.
+      if (err.code == 'IMPLEMENTATION_NOT_FOUND' && err.interface == 'app/app') {
         return IoC.create('./service');
       }
       
