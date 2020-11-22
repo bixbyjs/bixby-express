@@ -1,18 +1,30 @@
 /**
  * Main script.
  *
- * This component provides a main script that handles HTTP requests using the
- * Express framework.
+ * This component provides a main script for an HTTP application.
  *
- * This package provides a default service component which eliminates the
- * boilerplate typically used in most applications.  It is expected that most
- * applications will take advantage of this capability.  However, the main
- * script will preferrentially load an app-specific component, accomodating
- * applications that need to override the standard boilerplate.
+ * This package provides a default app component which uses the [Express][1]
+ * framework.  It is expected that most applications will utilize this component,
+ * as it eliminates the boilerplate typically found in most Express apps.
+ *
+ * However, the main script will preferrentially load an application-provided
+ * component (at `app/service`), for applications that wish to override the
+ * standard boilerplate or use an alternative framework.  This component is
+ * expected to provide a function which handles HTTP requests, as defined by
+ * Node.js' HTTP [`request` event][2].  For example:
+ *
+ *     function(req, res) {
+ *       res.statusCode = 200;
+ *       res.setHeader('Content-Type', 'text/plain');
+ *       res.end('Hello World');
+ *     }
  *
  * Once the service is created, the gateway between the application and the
  * World Wide Web (WWW) will be instantiated, and requests received will be
  * dispatched to the application.
+ *
+ * [1]: https://expressjs.com/
+ * [2]: https://nodejs.org/api/http.html#http_event_request
  */
 exports = module.exports = function(IoC, logger) {
   
@@ -22,8 +34,11 @@ exports = module.exports = function(IoC, logger) {
       // which it it should be mounted.  Create the default service component,
       // which will mount the application-provided service, as well as eliminate
       // boilerplate in the application itself.
+      
+      // TODO: No need to check for path, just service
       if (service[1].implements.indexOf('http://i.bixbyjs.org/http/Service') != -1
           && service[1].a['@path']) {
+            // TODO: Rename this to ./app
         return IoC.create('./service');
       }
       
