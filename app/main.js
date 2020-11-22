@@ -3,7 +3,7 @@
  *
  * This component provides a main script for an HTTP application.
  *
- * This package provides a default app component which uses the [Express][1]
+ * This package provides a default service component which uses the [Express][1]
  * framework.  It is expected that most applications will utilize this component,
  * as it eliminates the boilerplate typically found in most Express apps.
  *
@@ -21,7 +21,7 @@
  *
  * Once the service is created, the gateway between the application and the
  * World Wide Web (WWW) will be instantiated, and requests received will be
- * dispatched to the application.
+ * dispatched to the service for handling.
  *
  * [1]: https://expressjs.com/
  * [2]: https://nodejs.org/api/http.html#http_event_request
@@ -38,7 +38,6 @@ exports = module.exports = function(IoC, logger) {
       // TODO: No need to check for path, just service
       if (service[1].implements.indexOf('http://i.bixbyjs.org/http/Service') != -1
           && service[1].a['@path']) {
-            // TODO: Rename this to ./app
         return IoC.create('./service');
       }
       
