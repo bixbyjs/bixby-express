@@ -29,20 +29,9 @@
 exports = module.exports = function(IoC, logger) {
   
   return IoC.create('app/app', { metadata: true })
-    .then(function(service) {
-      // The application-specific service component is annotated with a path at
-      // which it it should be mounted.  Create the default service component,
-      // which will mount the application-provided service, as well as eliminate
-      // boilerplate in the application itself.
-      
-      if (service[1].implements.indexOf('http://i.bixbyjs.org/http/Service') != -1) {
-        return IoC.create('./service');
-      }
-      
-      return service[0];
-    }, function(err) {
-      // No application-specific service component is provided.  Create the
-      // default service component, which uses Express and eliminates common
+    .catch(function(err) {
+      // No application-provided component is available.  Create the default
+      // service component, which uses Express and eliminates common
       // boilerplate.
       if (err.code == 'IMPLEMENTATION_NOT_FOUND' && err.interface == 'app/app') {
         return IoC.create('./service');

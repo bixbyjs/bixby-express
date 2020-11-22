@@ -16,7 +16,7 @@ describe('main', function() {
     expect(factory['@implements']).to.equal('http://i.bixbyjs.org/main');
   });
   
-  describe('when app uses default service', function(done) {
+  describe('when app uses default component', function(done) {
     var service = sinon.stub(express());
     
     var gateway = new Object();
@@ -26,11 +26,11 @@ describe('main', function() {
     
     var error = new Error('something went wrong');
     error.code = 'IMPLEMENTATION_NOT_FOUND';
-    error.interface = 'app/service';
+    error.interface = 'app/app';
     
     var container = new Object();
     container.create = sinon.stub()
-    container.create.withArgs('app/service', { meta: true }).rejects(error);
+    container.create.withArgs('app/app').rejects(error);
     container.create.withArgs('./service').resolves(service);
     container.create.withArgs('./gateways').resolves([ gateway ]);
     
@@ -43,7 +43,7 @@ describe('main', function() {
     
     it('should create service', function() {
       expect(container.create).to.be.calledThrice;
-      expect(container.create.getCall(0)).to.be.calledWith('app/service');
+      expect(container.create.getCall(0)).to.be.calledWith('app/app');
       expect(container.create.getCall(1)).to.be.calledWith('./service');
       expect(container.create.getCall(2)).to.be.calledWith('./gateways');
     });
@@ -57,9 +57,9 @@ describe('main', function() {
       expect(logger.info).to.be.calledOnce;
       expect(logger.info.getCall(0)).to.be.calledWith('HTTP server listening on %s:%d', '127.0.0.1', 8080);
     });
-  }); // when app uses default service
+  }); // when app uses default component
   
-  describe('when app provides app-specific service', function(done) {
+  describe('when app provides component', function(done) {
     var service = sinon.stub(express());
     
     var gateway = new Object();
@@ -69,10 +69,7 @@ describe('main', function() {
     
     var container = new Object();
     container.create = sinon.stub()
-    container.create.withArgs('app/service', { meta: true }).resolves([ service, {
-      implements: [],
-      a: {}
-    } ]);
+    container.create.withArgs('app/app').resolves(service);
     container.create.withArgs('./gateways').resolves([ gateway ]);
     
     var logger = new Object();
@@ -84,7 +81,7 @@ describe('main', function() {
     
     it('should create service', function() {
       expect(container.create).to.be.calledTwice;
-      expect(container.create.getCall(0)).to.be.calledWith('app/service');
+      expect(container.create.getCall(0)).to.be.calledWith('app/app');
       expect(container.create.getCall(1)).to.be.calledWith('./gateways');
     });
     
@@ -97,9 +94,9 @@ describe('main', function() {
       expect(logger.info).to.be.calledOnce;
       expect(logger.info.getCall(0)).to.be.calledWith('HTTP server listening on %s:%d', '127.0.0.1', 8080);
     });
-  }); // when app provides app-specific service
+  }); // when app provides component
   
-  describe('when app provides app-specific service to be mounted by default service', function(done) {
+  describe('when app provides component that fails to be created', function(done) {
     var service = sinon.stub(express());
     
     var gateway = new Object();
@@ -109,49 +106,7 @@ describe('main', function() {
     
     var container = new Object();
     container.create = sinon.stub()
-    container.create.withArgs('app/service', { meta: true }).resolves([ service, {
-      implements: [ 'http://i.bixbyjs.org/http/Service'] ,
-      a: { '@path': '/' }
-    } ]);
-    container.create.withArgs('./service').resolves(service);
-    container.create.withArgs('./gateways').resolves([ gateway ]);
-    
-    var logger = new Object();
-    logger.info = sinon.spy();
-    
-    before(function(done) {
-      factory(container, logger).then(done, done);
-    });
-    
-    it('should create service', function() {
-      expect(container.create).to.be.calledThrice;
-      expect(container.create.getCall(0)).to.be.calledWith('app/service');
-      expect(container.create.getCall(1)).to.be.calledWith('./service');
-      expect(container.create.getCall(2)).to.be.calledWith('./gateways');
-    });
-    
-    it('should dispatch requests from gateway', function() {
-      expect(gateway.on).to.be.calledWith('request', service);
-      expect(gateway.listen).to.be.calledOnce;
-    });
-    
-    it('should log messages', function() {
-      expect(logger.info).to.be.calledOnce;
-      expect(logger.info.getCall(0)).to.be.calledWith('HTTP server listening on %s:%d', '127.0.0.1', 8080);
-    });
-  }); // when app provides app-specific service to be mounted by default service
-  
-  describe('when app provides app-specific service that fails to be created', function(done) {
-    var service = sinon.stub(express());
-    
-    var gateway = new Object();
-    gateway.on = sinon.spy();
-    gateway.listen = sinon.stub().yieldsOn(gateway);
-    gateway.address = sinon.stub().returns({ address: '127.0.0.1', port: 8080 });
-    
-    var container = new Object();
-    container.create = sinon.stub()
-    container.create.withArgs('app/service', { meta: true }).rejects(new Error('something went wrong'));
+    container.create.withArgs('app/app').rejects(new Error('something went wrong'));
     container.create.withArgs('./gateways').resolves([ gateway ]);
     
     var logger = new Object();
@@ -172,7 +127,7 @@ describe('main', function() {
     
     it('should attempt to create service', function() {
       expect(container.create).to.be.calledOnce;
-      expect(container.create.getCall(0)).to.be.calledWith('app/service');
+      expect(container.create.getCall(0)).to.be.calledWith('app/app');
     });
     
     it('should not dispatch requests from gateway', function() {
@@ -183,7 +138,7 @@ describe('main', function() {
     it('should rethrow error', function() {
       expect(error.message).to.equal('something went wrong');
     });
-  }); // when app provides app-specific site that fails to be created
+  }); // when app provides component that fails to be created
   
   describe('when app supports multiple gateways', function(done) {
     var service = sinon.stub(express());
@@ -199,10 +154,7 @@ describe('main', function() {
     
     var container = new Object();
     container.create = sinon.stub()
-    container.create.withArgs('app/service', { meta: true }).resolves([ service, {
-      implements: [],
-      a: {}
-    } ]);
+    container.create.withArgs('app/app').resolves(service);
     container.create.withArgs('./gateways').resolves([ gateway1, gateway2 ]);
     
     var logger = new Object();
@@ -212,9 +164,9 @@ describe('main', function() {
       factory(container, logger).then(done, done);
     });
     
-    it('should create site', function() {
+    it('should create service', function() {
       expect(container.create).to.be.calledTwice;
-      expect(container.create.getCall(0)).to.be.calledWith('app/service');
+      expect(container.create.getCall(0)).to.be.calledWith('app/app');
       expect(container.create.getCall(1)).to.be.calledWith('./gateways');
     });
     
