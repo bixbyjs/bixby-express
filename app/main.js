@@ -28,7 +28,7 @@
  */
 exports = module.exports = function(IoC, logger) {
   
-  return IoC.create('app/app', { metadata: true })
+  return IoC.create('app/app')
     .catch(function(err) {
       // No application-provided component is available.  Create the default
       // service component, which uses Express and eliminates common
@@ -40,6 +40,9 @@ exports = module.exports = function(IoC, logger) {
       throw err;
     })
     .then(function(service) {
+      // TODO: Utilize metadata here to determine name of interface (CGI vs HTTP)
+      //       in log message
+      
       return IoC.create('./gateways')
         .then(function(gateways) {
           // TODO: Implement a way to extend the express app so that it
