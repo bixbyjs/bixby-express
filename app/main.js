@@ -49,8 +49,7 @@ exports = module.exports = function(IoC, logger) {
           //       can map between paths and service names, and used to
           //       announce service in a service registry.
           gateways.forEach(function(gateway) {
-            // Dispatch requests to the service, which in this case is an
-            // Express app.
+            // Dispatch requests to the service for handling.
             gateway.on('request', service);
             
             // TODO: Remove err from callback signature, and hook up error event
