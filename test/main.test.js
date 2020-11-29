@@ -21,7 +21,7 @@ describe('main', function() {
     
     var gateway = new Object();
     gateway.on = sinon.spy();
-    gateway.listen = sinon.stub().yieldsOn(gateway);
+    gateway.listen = sinon.stub().yieldsOnAsync(gateway);
     gateway.address = sinon.stub().returns({ address: '127.0.0.1', port: 8080 });
     
     var error = new Error('something went wrong');
@@ -64,7 +64,7 @@ describe('main', function() {
     
     var gateway = new Object();
     gateway.on = sinon.spy();
-    gateway.listen = sinon.stub().yieldsOn(gateway);
+    gateway.listen = sinon.stub().yieldsOnAsync(gateway);
     gateway.address = sinon.stub().returns({ address: '127.0.0.1', port: 8080 });
     
     var container = new Object();
@@ -101,7 +101,7 @@ describe('main', function() {
     
     var gateway = new Object();
     gateway.on = sinon.spy();
-    gateway.listen = sinon.stub().yieldsOn(gateway);
+    gateway.listen = sinon.stub().yieldsOnAsync(gateway);
     gateway.address = sinon.stub().returns({ address: '127.0.0.1', port: 8080 });
     
     var container = new Object();
@@ -145,11 +145,11 @@ describe('main', function() {
     
     var gateway1 = new Object();
     gateway1.on = sinon.spy();
-    gateway1.listen = sinon.stub().yieldsOn(gateway1);
+    gateway1.listen = sinon.stub().yieldsOnAsync(gateway1);
     gateway1.address = sinon.stub().returns({ address: '127.0.0.1', port: 8080 });
     var gateway2 = new Object();
     gateway2.on = sinon.spy();
-    gateway2.listen = sinon.stub().yieldsOn(gateway2);
+    gateway2.listen = sinon.stub().yieldsOnAsync(gateway2);
     gateway2.address = sinon.stub().returns({ address: '127.0.0.1', port: 9000 });
     
     var container = new Object();
