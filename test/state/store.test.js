@@ -10,7 +10,7 @@ describe('state/store', function() {
   });
   
   it('should be annotated', function() {
-    expect(factory['@implements']).to.equal('http://i.bixbyjs.org/http/StateStore');
+    expect(factory['@implements']).to.equal(undefined);
     expect(factory['@singleton']).to.equal(true);
   });
   

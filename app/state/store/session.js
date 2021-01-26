@@ -1,18 +1,7 @@
 exports = module.exports = function() {
-  var flowstate = require('flowstate');
+  var SessionStore = require('flowstate').SessionStore;
   
-  
-  return {
-    canCreate: function(options) {
-      return true;
-    },
-    
-    create: function(options) {
-      return new flowstate.SessionStore();
-    }
-  };
+  return new SessionStore();
 };
 
-exports['@name'] = 'session';
-exports['@singleton'] = true;
 exports['@require'] = [];
