@@ -37,7 +37,7 @@ exports = module.exports = function(IoC, session) {
     });
 };
 
-exports['@implements'] = 'http://i.bixbyjs.org/http/state/Store';
+exports['@implements'] = 'http://i.bixbyjs.org/http/StateStore';
 exports['@singleton'] = true;
 exports['@require'] = [
   '!container',
