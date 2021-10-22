@@ -32,7 +32,6 @@
     "components": [
       "main",
       "middleware/authenticate",
-      "middleware/ceremony",
       "middleware/cors",
       "middleware/csrfprotection",
       "middleware/errorlogging",
@@ -41,6 +40,7 @@
       "middleware/parse",
       "middleware/parsecookies",
       "middleware/session",
+      "middleware/state",
       "state/store"
     ]
   },
