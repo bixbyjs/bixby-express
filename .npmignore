@@ -3,6 +3,8 @@ docs/
 examples/
 reports/
 test/
+attic/
 
+.github
 .jshintrc
 .travis.yml
