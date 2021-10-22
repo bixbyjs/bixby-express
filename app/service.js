@@ -16,6 +16,7 @@ exports = module.exports = function(IoC, logging, settings, logger) {
   app.set('view engine', settings.get('views/engine') || 'ejs');
   
   // TODO: Mount static middleware, if directory exists
+  app.use(express.static(path.resolve(path.dirname(require.main.filename), 'public')));
   
   app.use(logging());
   

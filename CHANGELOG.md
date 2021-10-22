@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Default Express app sets `'view'` and `'view engine'` settings and registers
 template engine components.
+- Default Express app serves static files from `public` directory.
 - Added `middleware/state`.
 
 ### Removed
