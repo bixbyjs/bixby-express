@@ -17,4 +17,4 @@ template engine components.
 ## [0.2.2] - 2020-10-01
 
 [Unreleased]: https://github.com/bixbyjs/bixby-express/compare/v0.2.2...HEAD
-[0.2.2]: https://github.com/bixbyjs/bixby-express/releases/tag/v0.2.2
+[0.2.2]: https://github.com/bixbyjs/bixby-express/compare/v0.2.1...v0.2.2
