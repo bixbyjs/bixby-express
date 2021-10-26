@@ -14,6 +14,8 @@ template engine components.
 ### Changed
 - Obtain secret for session middleware from `http://i.bixbyjs.org/security/credentials/SecretVault`
 component instead of `http://i.bixbyjs.org/security/Keyring`.
+- Obtain secret for cookie parser middleware from `http://i.bixbyjs.org/security/credentials/SecretVault`
+component instead of `http://i.bixbyjs.org/security/Keyring`.
 
 ### Removed
 - Removed `middleware/ceremony`.  Use `middleware/state` instead.
