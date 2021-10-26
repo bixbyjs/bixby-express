@@ -18,7 +18,7 @@ describe('middleware/parsecookies', function() {
   
   it('should resolve with setup function', function(done) {
     var _keyring = { get: function(){} };
-    sinon.stub(_keyring, 'get').yieldsAsync(null, { password: 'keyboard cat' });
+    sinon.stub(_keyring, 'get').yieldsAsync(null, 'keyboard cat');
     
     var promise = factory(_keyring);
     expect(_keyring.get).to.have.been.calledOnce;
@@ -31,7 +31,7 @@ describe('middleware/parsecookies', function() {
   
   describe('setup', function() {
     var _keyring = { get: function(){} };
-    sinon.stub(_keyring, 'get').yieldsAsync(null, { password: 'keyboard cat' });
+    sinon.stub(_keyring, 'get').yieldsAsync(null, 'keyboard cat');
     
     var cookieParserStub = sinon.stub().returns(function(req, res, next){});
     var promise = $require('../../app/middleware/parsecookies',

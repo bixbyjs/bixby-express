@@ -8,7 +8,7 @@ exports = module.exports = function(IoC, store, vault) {
     
     vault.get(function(err, secret) {
       if (err) { return reject(err); }
-      if (!secret) { return reject(new Error("Cannot find credentials for '" + 'self' + "'")); }
+      if (!secret) { return reject(new Error('Secret to sign and verify session ID cookie not found')); }
   
       // TODO: set `name` to `sid`
       // TODO: Detect env and set `proxy` options? (or just leave undefined and defer to express, probably best)

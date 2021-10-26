@@ -27,7 +27,7 @@ describe('middleware/session', function() {
   it('should resolve with setup function', function(done) {
     var _store = new MockSessionStore();
     var _keyring = { get: function(){} };
-    sinon.stub(_keyring, 'get').yieldsAsync(null, { password: 'keyboard cat' });
+    sinon.stub(_keyring, 'get').yieldsAsync(null, 'keyboard cat');
     
     var promise = factory(_container, _store, _keyring);
     expect(_keyring.get).to.have.been.calledOnce;
@@ -41,7 +41,7 @@ describe('middleware/session', function() {
   describe('setup', function() {
     var _store = new MockSessionStore();
     var _keyring = { get: function(){} };
-    sinon.stub(_keyring, 'get').yieldsAsync(null, { password: 'keyboard cat' });
+    sinon.stub(_keyring, 'get').yieldsAsync(null, 'keyboard cat');
     
     var sessionStub = sinon.stub().returns(function(req, res, next){});
     var promise = $require('../../app/middleware/session',
