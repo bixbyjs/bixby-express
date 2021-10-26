@@ -38,7 +38,6 @@
       "middleware/cors",
       "middleware/csrfprotection",
       "middleware/errorlogging",
-      "middleware/initialize",
       "middleware/logging",
       "middleware/parse",
       "middleware/parsecookies",
