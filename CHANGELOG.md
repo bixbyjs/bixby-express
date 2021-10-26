@@ -19,6 +19,7 @@ component instead of `http://i.bixbyjs.org/security/Keyring`.
 
 ### Removed
 - Removed `middleware/ceremony`.  Use `middleware/state` instead.
+- Removed `middleware/initialize`.
 
 ## [0.2.2] - 2020-10-01
 
