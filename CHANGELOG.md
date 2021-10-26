@@ -11,6 +11,10 @@ template engine components.
 - Default Express app serves static files from `public` directory.
 - Added `middleware/state`.
 
+### Changed
+- Obtain secret for session middleware from `http://i.bixbyjs.org/security/credentials/SecretVault`
+component instead of `http://i.bixbyjs.org/security/Keyring`.
+
 ### Removed
 - Removed `middleware/ceremony`.  Use `middleware/state` instead.
 

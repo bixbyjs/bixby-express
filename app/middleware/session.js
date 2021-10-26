@@ -1,4 +1,4 @@
-exports = module.exports = function(IoC, store, keyring) {
+exports = module.exports = function(IoC, store, vault) {
   if (!store) {
     // no server side session store, use cookie sessions
     return IoC.create('./session/cookie');
@@ -6,15 +6,15 @@ exports = module.exports = function(IoC, store, keyring) {
   
   return new Promise(function(resolve, reject) {
     
-    keyring.get(function(err, cred) {
+    vault.get(function(err, secret) {
       if (err) { return reject(err); }
-      if (!cred) { return reject(new Error("Cannot find credentials for '" + hostname + "'")); }
+      if (!secret) { return reject(new Error("Cannot find credentials for '" + 'self' + "'")); }
   
       // TODO: set `name` to `sid`
       // TODO: Detect env and set `proxy` options? (or just leave undefined and defer to express, probably best)
       // TODO: see if store implements `touch`, and set resave to `true`, if not
       var opts = {
-        secret: cred.password,
+        secret: secret,
         store: store,
         resave: false,
         saveUninitialized: false
@@ -33,5 +33,5 @@ exports['@singleton'] = true;
 exports['@require'] = [
   '!container',
   '../session/store',
-  'http://i.bixbyjs.org/security/Keyring'
+  'http://i.bixbyjs.org/security/credentials/SecretVault'
 ];
