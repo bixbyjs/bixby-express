@@ -4,7 +4,7 @@ exports = module.exports = function(store) {
     options = options || {};
     options.store = store;
     
-    return require('flowstate').state(options);
+    return require('flowstate')(options);
   };
 };
 
