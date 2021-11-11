@@ -12,10 +12,21 @@ template engine components.
 - Added `middleware/state` and `middleware/cleanstate`.
 
 ### Changed
+- Application-specific Express app created from `app/app` rather than
+`app/service`.
 - Obtain secret for session middleware from `http://i.bixbyjs.org/security/credentials/SecretVault`
 component instead of `http://i.bixbyjs.org/security/Keyring`.
 - Obtain secret for cookie parser middleware from `http://i.bixbyjs.org/security/credentials/SecretVault`
 component instead of `http://i.bixbyjs.org/security/Keyring`.
+- Session store interface renamed to `http://i.bixbyjs.org/http/SessionStore` from
+`http://i.bixbyjs.org/http/ISessionStore`.
+- Connection to session store is no longer established by this package, and is
+now expected to be established by the component that creates the store.
+- State store no longer attempts to create components that implement
+`http://i.bixbyjs.org/http/state/StoreProvider`.  It defers to application-
+supplied component and defaults to a session store.
+- Updated to `flowstate@0.5.x`.
+
 
 ### Removed
 - Removed `middleware/ceremony`.  Use `middleware/state` instead.
