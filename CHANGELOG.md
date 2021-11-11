@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Default Express app sets `'view'` and `'view engine'` settings and registers
 template engine components.
 - Default Express app serves static files from `public` directory.
-- Added `middleware/state`.
+- Added `middleware/state` and `middleware/cleanstate`.
 
 ### Changed
 - Obtain secret for session middleware from `http://i.bixbyjs.org/security/credentials/SecretVault`
