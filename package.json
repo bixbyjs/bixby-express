@@ -35,6 +35,7 @@
     "components": [
       "main",
       "middleware/authenticate",
+      "middleware/cleanstate",
       "middleware/cors",
       "middleware/csrfprotection",
       "middleware/errorlogging",
