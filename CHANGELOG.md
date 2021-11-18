@@ -27,7 +27,6 @@ now expected to be established by the component that creates the store.
 supplied component and defaults to a session store.
 - Updated to `flowstate@0.5.x`.
 
-
 ### Removed
 - Removed `middleware/ceremony`.  Use `middleware/state` instead.
 - Removed `middleware/initialize`.
