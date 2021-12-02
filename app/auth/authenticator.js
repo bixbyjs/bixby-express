@@ -1,9 +1,17 @@
 exports = module.exports = function(IoC, logger) {
   // Load modules.
-  var passport = require('passport');
+  var passport = require('passport')
+    , multi = require('passport-multilogin');
   
   
   var authenticator = new passport.Authenticator();
+  authenticator.unuse('session');
+  
+  var sm = new multi.SessionManager(authenticator.serializeUser.bind(authenticator));
+  authenticator.sessions(sm);
+  
+  var mss = new multi.SessionStrategy(authenticator.deserializeUser.bind(authenticator));
+  authenticator.use(mss);
   
   authenticator.serializeUser(function(user, cb) {
     console.log('SERIALIZE!!!!');
@@ -32,7 +40,6 @@ exports = module.exports = function(IoC, logger) {
           component.create()
             .then(function(scheme) {
               logger.info('Loaded HTTP authentication scheme: ' + (component.a['@scheme'] || scheme.name));
-              
               authenticator.use(component.a['@scheme'] || scheme.name, scheme);
               iter(i + 1);
             }, function(err) {
