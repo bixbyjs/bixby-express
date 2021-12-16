@@ -12,12 +12,7 @@ exports = module.exports = function(authenticator) {
     
     merge(_options, options);
     
-    //return authenticator.authenticate(strategy, opts);
-    // FIXME: Remove the need for initialze middleware.
-    return [
-      authenticator.initialize(),
-      authenticator.authenticate(strategy, _options)
-    ];
+    return authenticator.authenticate(strategy, _options);
   };
 };
 
