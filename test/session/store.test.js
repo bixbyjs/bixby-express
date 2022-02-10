@@ -42,18 +42,18 @@ describe('session/store', function() {
     expect(factory['@singleton']).to.equal(true);
   });
   
-  it('should resolve with session store found via service discovery', function(done) {
-    sinon.stub(_container, 'components').returns([ { a: { '@name': 'sessions-mock' } } ]);
-    var _connect = sinon.stub().yieldsAsync(null, new MockSessionStore());
+  it('should resolve with store from IoC container', function(done) {
+    var store = new Object();
+    var container = new Object();
+    container.create = sinon.stub().resolves(store);
     
-    var promise = factory(_container, _connect, _logger);
-    promise.then(function(store) {
-      expect(_container.components).to.have.been.calledWith('http://i.bixbyjs.org/http/ISessionStore');
-      expect(_connect).to.have.been.calledWith([ 'sessions-mock' ]);
-      expect(store).to.be.an.instanceof(MockSessionStore);
-      done();
-    }).catch(done);
-  }); // should resolve with session store found via service discovery
+    factory(container, undefined)
+      .then(function(obj) {
+        expect(container.create).have.been.calledWith('http://i.bixbyjs.org/http/SessionStore');
+        expect(obj).to.equal(store);
+        done();
+      }).catch(done);
+  }); // should resolve with store from IoC container
   
   it('should resolve with memory store as last resort in development environment', function(done) {
     sinon.stub(_container, 'components').returns([ { a: { '@name': 'sess-redis' } } ]);
