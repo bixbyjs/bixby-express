@@ -45,7 +45,8 @@ describe('session/store', function() {
   it('should resolve with store from IoC container', function(done) {
     var store = new Object();
     var container = new Object();
-    container.create = sinon.stub().resolves(store);
+    container.create = sinon.stub();
+    container.create.resolves(store);
     
     factory(container, undefined)
       .then(function(obj) {
@@ -56,19 +57,23 @@ describe('session/store', function() {
   }); // should resolve with store from IoC container
   
   it('should resolve with memory store as last resort in development environment', function(done) {
-    sinon.stub(_container, 'components').returns([ { a: { '@name': 'sess-redis' } } ]);
-    var error = new Error('querySrv ENOTFOUND sess-redis');
-    error.code = 'ENOTFOUND';
-    var _connect = sinon.stub().yieldsAsync(error);
-    sinon.stub(_container, 'create').returns(new MemoryStore());
+    var error = new Error('Unable...');
+    var store = new Object();
+    var container = new Object();
+    container.create = sinon.stub();
+    container.create.withArgs('http://i.bixbyjs.org/http/SessionStore').rejects(error);
+    container.create.withArgs('./store/memory').resolves(store);
+    
+    var logger = new Object();
+    logger.notice = sinon.spy();
     
     process.env.NODE_ENV = 'development';
-    var promise = factory(_container, _connect, _logger);
-    promise.then(function(store) {
-      expect(_container.components).to.have.been.calledWith('http://i.bixbyjs.org/http/ISessionStore');
-      expect(_connect).to.have.been.calledWith([ 'sess-redis' ]);
-      expect(_container.create).to.have.been.calledOnceWith('./store/memory');
-      expect(store).to.be.an.instanceof(MemoryStore);
+    var promise = factory(container, logger);
+    promise.then(function(obj) {
+      expect(container.create).have.been.calledTwice;
+      expect(container.create.getCall(0).args[0]).to.equal('http://i.bixbyjs.org/http/SessionStore');
+      expect(container.create.getCall(1).args[0]).to.equal('./store/memory');
+      expect(obj).to.equal(store);
       done();
     }).catch(done);
   }); // should resolve with memory store as last resort in development environment
