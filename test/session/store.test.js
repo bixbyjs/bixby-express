@@ -57,7 +57,10 @@ describe('session/store', function() {
   }); // should resolve with store from IoC container
   
   it('should resolve with memory store as last resort in development environment', function(done) {
-    var error = new Error('Unable...');
+    var error = new Error('Cannot find implementation');
+    error.code = 'IMPLEMENTATION_NOT_FOUND';
+    error.interface = 'http://i.bixbyjs.org/http/SessionStore';
+    
     var store = new Object();
     var container = new Object();
     container.create = sinon.stub();

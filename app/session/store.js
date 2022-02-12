@@ -1,18 +1,14 @@
-exports = module.exports = function(IoC, logger) {
+exports = module.exports = function(C, logger) {
   
-  return IoC.create('http://i.bixbyjs.org/http/SessionStore')
-    .catch(function(err) {
-      console.log(err);
-      
-      //if (err.code !== 'ENOTFOUND') { throw err; }
-      if (process.env.NODE_ENV !== 'development') {
-        // TODO: Consider using a cookie-based store here, for stateless sessions
-        //throw err;
-        return null;
+  return C.create('http://i.bixbyjs.org/http/SessionStore')
+    .catch(function(error) {
+      if (error.code == 'IMPLEMENTATION_NOT_FOUND' && error.interface == 'http://i.bixbyjs.org/http/SessionStore'
+          && process.env.NODE_ENV == 'development') {
+        logger.notice('Using in-memory HTTP session store during development');
+        return C.create('./store/memory');
       }
       
-      logger.notice('Using in-memory HTTP session store for development');
-      return IoC.create('./store/memory');
+      throw error;
     });
 };
 
