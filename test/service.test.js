@@ -42,13 +42,17 @@ describe('service', function() {
     var logging = function(req, res, next){};
     var loggingMiddleware = sinon.stub().returns(logging);
     
+    var settings = new Object();
+    settings.get = sinon.stub();
+    settings.get.returns(undefined);
+    
     var logger = new Object();
     logger.notice = sinon.spy();
     logger.debug = sinon.spy();
     
     
     before(function(done) {
-      factory(container, loggingMiddleware, logger).then(function(obj) {
+      factory(container, loggingMiddleware, settings, logger).then(function(obj) {
         app = obj;
         done();
       }, done);
