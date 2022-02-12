@@ -6,8 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
-- `session/store` component throws, rather than returning null, when unable to
-create store in non-development environment.
+- `session/store` component re-throws, rather than returning null, when unable
+to create store in non-development environment.
 
 ## [0.2.3] - 2021-11-17
 ### Added
