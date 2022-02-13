@@ -1,3 +1,7 @@
+/**
+ * HTTP session store.
+ *
+ */
 exports = module.exports = function(C, logger) {
   
   return C.create('http://i.bixbyjs.org/http/SessionStore')
