@@ -48,6 +48,42 @@ describe('session/store', function() {
       .catch(done);
   }); // should resolve with application-supplied store
   
+  it('should re-throw error creating application-supplied store', function(done) {
+    var error = new Error('Something went wrong');
+    container.create.withArgs('http://i.bixbyjs.org/http/SessionStore').rejects(error);
+    
+    var store = new Object();
+    container.create.withArgs('./store/memory').resolves(store);
+    
+    factory(container, logger)
+      .catch(function(err) {
+        expect(container.create).to.have.been.calledOnce;
+        expect(container.create).to.have.been.calledWith('http://i.bixbyjs.org/http/SessionStore');
+        expect(err).to.equal(error);
+        done();
+      });
+  }); // should re-throw error creating application-supplied store
+  
+  it('should re-throw error in production environment when implementation not found', function(done) {
+    process.env.NODE_ENV = 'production';
+    
+    var error = new Error('Cannot find implementation');
+    error.code = 'IMPLEMENTATION_NOT_FOUND';
+    error.interface = 'http://i.bixbyjs.org/http/SessionStore';
+    container.create.withArgs('http://i.bixbyjs.org/http/SessionStore').rejects(error);
+    
+    var store = new Object();
+    container.create.withArgs('./store/memory').resolves(store);
+    
+    factory(container, logger)
+      .catch(function(err) {
+        expect(container.create).to.have.been.calledOnce;
+        expect(container.create).to.have.been.calledWith('http://i.bixbyjs.org/http/SessionStore');
+        expect(err).to.equal(error);
+        done();
+      });
+  }); // should re-throw error in production environment when implementation not found
+  
   it('should resolve with memory store in development environment when implementation not found', function(done) {
     process.env.NODE_ENV = 'development';
     
@@ -71,25 +107,5 @@ describe('session/store', function() {
       })
       .catch(done);
   }); // should resolve with memory store in development environment when implementation not found
-  
-  it('should re-throw error in production environment when implementation not found', function(done) {
-    process.env.NODE_ENV = 'production';
-    
-    var error = new Error('Cannot find implementation');
-    error.code = 'IMPLEMENTATION_NOT_FOUND';
-    error.interface = 'http://i.bixbyjs.org/http/SessionStore';
-    container.create.withArgs('http://i.bixbyjs.org/http/SessionStore').rejects(error);
-    
-    var store = new Object();
-    container.create.withArgs('./store/memory').resolves(store);
-    
-    factory(container, logger)
-      .catch(function(err) {
-        expect(container.create).to.have.been.calledOnce;
-        expect(container.create).to.have.been.calledWith('http://i.bixbyjs.org/http/SessionStore');
-        expect(err).to.equal(error);
-        done();
-      });
-  }); // should re-throw error in production environment when implementation not found
   
 }); // session/store
