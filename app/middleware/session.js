@@ -1,9 +1,4 @@
 exports = module.exports = function(IoC, store, vault) {
-  if (!store) {
-    // no server side session store, use cookie sessions
-    return IoC.create('./session/cookie');
-  }
-  
   return new Promise(function(resolve, reject) {
     
     vault.get(function(err, secret) {

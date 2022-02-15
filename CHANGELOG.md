@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `session/store` component re-throws, rather than returning null, when unable
 to create store in non-development environment.
 
+### Removed
+- Removed use of cookie-based session middleware, which was used when no session
+store was available, from `middleware/session` component.
+
 ## [0.2.3] - 2021-11-17
 ### Added
 - Default Express app sets `'view'` and `'view engine'` settings and registers
