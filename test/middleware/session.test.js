@@ -38,37 +38,37 @@ describe('middleware/session', function() {
       }).catch(done);
   }); // should resolve with middleware
   
-  describe('setup', function() {
-    var _store = new MockSessionStore();
-    var _keyring = { get: function(){} };
-    sinon.stub(_keyring, 'get').yieldsAsync(null, 'keyboard cat');
+  describe('setup function', function() {
     
-    var sessionStub = sinon.stub().returns(function(req, res, next){});
-    var promise = $require('../../app/middleware/session',
-      { 'express-session': sessionStub }
-    )(_container, _store, _keyring);
-    var setup;
-    
-    before(function(done) {
-      promise.then(function(s) {
-        setup = s;
-        done();
-      });
-    });
-    
-    it('should create middleware with default options', function() {
-      var middleware = setup();
+    it('should create middleware with default options', function(done) {
+      var session = sinon.stub();
+      session.returns(function(req, res, next){});
+      var store = new Object();
+      var vault = new Object();
+      vault.get = sinon.stub();
+      vault.get.yieldsAsync(null, 'keyboard cat');
       
-      expect(sessionStub).to.have.been.calledOnceWithExactly({
-        secret: 'keyboard cat',
-        store: _store,
-        resave: false,
-        saveUninitialized: false
-      });
-      expect(middleware).to.be.a('function');
-      expect(middleware.length).to.equal(3);
+      var factory = $require('../../app/middleware/session',
+        { 'express-session': session }
+      );
+      
+      factory(_container, store, vault)
+        .then(function(setup) {
+          var middleware = setup();
+          
+          expect(session).to.have.been.calledOnceWithExactly({
+            secret: 'keyboard cat',
+            resave: false,
+            saveUninitialized: false,
+            store: store
+          });
+          expect(middleware).to.be.a('function');
+          expect(middleware.length).to.equal(3);
+          done();
+        })
+        .catch(done);
     }); // should create middleware with default options
     
-  }); // setup
+  }); // setup function
   
 }); // middleware/session
