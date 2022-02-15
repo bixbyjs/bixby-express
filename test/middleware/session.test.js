@@ -10,11 +10,6 @@ describe('middleware/session', function() {
   var store = new Object();
   var vault = new Object();
   
-  var _container = {
-    components: function(){},
-    create: function(){}
-  };
-  
   beforeEach(function() {
     vault.get = sinon.stub();
   });
@@ -28,7 +23,7 @@ describe('middleware/session', function() {
   it('should resolve with setup function', function(done) {
     vault.get.yieldsAsync(null, 'keyboard cat');
     
-    factory(_container, store, vault)
+    factory(store, vault)
       .then(function(setup) {
         expect(vault.get).to.have.been.calledOnce;
         expect(setup).to.be.a('function');
@@ -50,7 +45,7 @@ describe('middleware/session', function() {
         { 'express-session': session }
       );
       
-      factory(_container, store, vault)
+      factory(store, vault)
         .then(function(setup) {
           var middleware = setup();
           

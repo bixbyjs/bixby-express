@@ -1,6 +1,10 @@
-exports = module.exports = function(IoC, store, vault) {
+/**
+ * HTTP session middleware.
+ *
+ */
+exports = module.exports = function(store, vault) {
+  
   return new Promise(function(resolve, reject) {
-    
     vault.get(function(err, secret) {
       if (err) { return reject(err); }
       if (!secret) { return reject(new Error('Secret to sign and verify session ID cookie not found')); }
@@ -19,8 +23,7 @@ exports = module.exports = function(IoC, store, vault) {
         return require('express-session')(opts);
       });
     });
-    
-  }); // new Promise
+  });
 };
 
 exports['@implements'] = 'http://i.bixbyjs.org/http/middleware/session';
