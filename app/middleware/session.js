@@ -29,7 +29,6 @@ exports = module.exports = function(store, vault) {
 exports['@implements'] = 'http://i.bixbyjs.org/http/middleware/session';
 exports['@singleton'] = true;
 exports['@require'] = [
-  '!container',
   '../session/store',
   'http://i.bixbyjs.org/security/credentials/SecretVault'
 ];
