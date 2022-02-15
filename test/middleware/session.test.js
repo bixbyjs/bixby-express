@@ -6,8 +6,6 @@ var sinon = require('sinon');
 var factory = require('../../app/middleware/session');
 
 
-function MockSessionStore(){};
-
 describe('middleware/session', function() {
   var store = new Object();
   var vault = new Object();
