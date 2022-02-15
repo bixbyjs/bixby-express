@@ -9,15 +9,18 @@ var factory = require('../../app/middleware/session');
 function MockSessionStore(){};
 
 describe('middleware/session', function() {
+  var store = new Object();
+  var vault = new Object();
+  
   var _container = {
     components: function(){},
     create: function(){}
   };
   
-  
-  it('should export factory function', function() {
-    expect(factory).to.be.a('function');
+  beforeEach(function() {
+    vault.get = sinon.stub();
   });
+  
   
   it('should be annotated', function() {
     expect(factory['@implements']).to.equal('http://i.bixbyjs.org/http/middleware/session');
@@ -25,17 +28,14 @@ describe('middleware/session', function() {
   });
   
   it('should resolve with setup function', function(done) {
-    var _store = new MockSessionStore();
-    var _keyring = { get: function(){} };
-    sinon.stub(_keyring, 'get').yieldsAsync(null, 'keyboard cat');
+    vault.get.yieldsAsync(null, 'keyboard cat');
     
-    var promise = factory(_container, _store, _keyring);
-    expect(_keyring.get).to.have.been.calledOnce;
-    
-    promise.then(function(setup) {
-      expect(setup).to.be.a('function');
-      done();
-    }).catch(done);
+    factory(_container, store, vault)
+      .then(function(setup) {
+        expect(vault.get).to.have.been.calledOnce;
+        expect(setup).to.be.a('function');
+        done();
+      }).catch(done);
   }); // should resolve with middleware
   
   describe('setup', function() {
