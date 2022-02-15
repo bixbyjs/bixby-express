@@ -7,7 +7,7 @@ exports = module.exports = function(store, vault) {
   return new Promise(function(resolve, reject) {
     vault.get(function(err, secret) {
       if (err) { return reject(err); }
-      if (!secret) { return reject(new Error('Secret to sign and verify session ID cookie not found')); }
+      if (!secret) { return reject(new Error('Cannot get secret to sign and verify session ID cookie')); }
   
       // TODO: set `name` to `sid`
       // TODO: Detect env and set `proxy` options? (or just leave undefined and defer to express, probably best)

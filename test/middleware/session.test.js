@@ -31,6 +31,30 @@ describe('middleware/session', function() {
       }).catch(done);
   }); // should resolve with middleware
   
+  it('should reject when secret not available', function(done) {
+    vault.get.yieldsAsync(null, undefined);
+    
+    factory(store, vault)
+      .catch(function(err) {
+        expect(err).to.be.an.instanceof(Error);
+        expect(err.message).to.equal('Cannot get secret to sign and verify session ID cookie');
+        done();
+      })
+      .catch(done);
+  }); // should reject when secret not available
+  
+  it('should reject when vault encounters an error', function(done) {
+    var error = new Error('Something went wrong');
+    vault.get.yieldsAsync(error);
+    
+    factory(store, vault)
+      .catch(function(err) {
+        expect(err).to.equal(error);
+        done();
+      })
+      .catch(done);
+  }); // should reject when vault encounters an error
+  
   describe('setup function', function() {
     
     it('should create middleware with default options', function(done) {
