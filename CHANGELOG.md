@@ -13,6 +13,8 @@ to create store in non-development environment.
 ### Removed
 - Removed use of cookie-based session middleware, which was used when no session
 store was available, from `middleware/session` component.
+- Removed export of `middleware/logging` component, which is now an internal
+component.
 - Removed `middleware/cors` component, as it has no dependencies which require
 injection.
 

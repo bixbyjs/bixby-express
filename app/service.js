@@ -101,7 +101,7 @@ exports = module.exports = function(IoC, logging, settings, logger) {
 
 exports['@require'] = [
   '!container',
-  'http://i.bixbyjs.org/http/middleware/logging',
+  './middleware/logging',
   'http://i.bixbyjs.org/Settings',
   'http://i.bixbyjs.org/Logger'
 ];
