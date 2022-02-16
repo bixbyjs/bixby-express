@@ -37,8 +37,8 @@ describe('middleware/cors', function() {
       expect(cors).to.have.been.calledOnceWithExactly(undefined);
       expect(middleware).to.be.a('function');
       expect(middleware.length).to.equal(3);
-    });
+    }); // should create middleware with default options
     
-  });
+  }); // setup function
   
 });
