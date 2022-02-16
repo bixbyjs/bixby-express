@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - `session/store` component re-throws, rather than returning null, when unable
 to create store in non-development environment.
+- `session/store/memory` component now a singleton.
 
 ### Removed
 - Removed use of cookie-based session middleware, which was used when no session

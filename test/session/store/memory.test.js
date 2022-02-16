@@ -7,12 +7,8 @@ var MemoryStore = require('express-session').MemoryStore;
 
 describe('session/store/memory', function() {
   
-  it('should export factory function', function() {
-    expect(factory).to.be.a('function');
-  });
-  
   it('should be annotated', function() {
-    expect(factory['@singleton']).to.be.undefined;
+    expect(factory['@singleton']).to.equal(true);
   });
   
   it('should create session store', function() {
