@@ -29,7 +29,7 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   ],
-  "main": "./app",
+  "main": "./app/app.js",
   "assembly": {
     "namespace": "http",
     "components": [
