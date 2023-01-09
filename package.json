@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "body-parser": "^1.17.1",
+    "connect-redis": "^5.0.0",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.1",
     "csurf": "^1.10.0",
@@ -64,7 +65,8 @@
     "mocha": "^6.2.1",
     "chai": "^4.2.0",
     "sinon": "^7.5.0",
-    "sinon-chai": "^3.3.0"
+    "sinon-chai": "^3.3.0",
+    "redis": "^3.0.2"
   },
   "engines": {
     "node": "*"
