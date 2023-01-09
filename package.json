@@ -42,7 +42,8 @@
       "middleware/parsecookies",
       "middleware/session",
       "middleware/state",
-      "state/store"
+      "state/store",
+      "session/store/redis"
     ]
   },
   "dependencies": {
