@@ -40,7 +40,7 @@ describe('session/store', function() {
     factory(container, logger)
       .then(function(obj) {
         expect(container.create).to.have.been.calledOnce;
-        expect(container.create).to.have.been.calledWith('http://i.bixbyjs.org/http/SessionStore');
+        expect(container.create).to.have.been.calledWith('module:express-session.Store');
         expect(obj).to.equal(store);
         done();
       })
@@ -49,7 +49,7 @@ describe('session/store', function() {
   
   it('should re-throw error creating application-supplied store', function(done) {
     var error = new Error('Something went wrong');
-    container.create.withArgs('http://i.bixbyjs.org/http/SessionStore').rejects(error);
+    container.create.withArgs('module:express-session.Store').rejects(error);
     
     var store = new Object();
     container.create.withArgs('./store/memory').resolves(store);
@@ -57,7 +57,7 @@ describe('session/store', function() {
     factory(container, logger)
       .catch(function(err) {
         expect(container.create).to.have.been.calledOnce;
-        expect(container.create).to.have.been.calledWith('http://i.bixbyjs.org/http/SessionStore');
+        expect(container.create).to.have.been.calledWith('module:express-session.Store');
         expect(err).to.equal(error);
         done();
       });
@@ -68,8 +68,8 @@ describe('session/store', function() {
     
     var error = new Error('Cannot find implementation');
     error.code = 'IMPLEMENTATION_NOT_FOUND';
-    error.interface = 'http://i.bixbyjs.org/http/SessionStore';
-    container.create.withArgs('http://i.bixbyjs.org/http/SessionStore').rejects(error);
+    error.interface = 'module:express-session.Store';
+    container.create.withArgs('module:express-session.Store').rejects(error);
     
     var store = new Object();
     container.create.withArgs('./store/memory').resolves(store);
@@ -77,7 +77,7 @@ describe('session/store', function() {
     factory(container, logger)
       .catch(function(err) {
         expect(container.create).to.have.been.calledOnce;
-        expect(container.create).to.have.been.calledWith('http://i.bixbyjs.org/http/SessionStore');
+        expect(container.create).to.have.been.calledWith('module:express-session.Store');
         expect(err).to.equal(error);
         done();
       });
@@ -88,8 +88,8 @@ describe('session/store', function() {
     
     var error = new Error('Cannot find implementation');
     error.code = 'IMPLEMENTATION_NOT_FOUND';
-    error.interface = 'http://i.bixbyjs.org/http/SessionStore';
-    container.create.withArgs('http://i.bixbyjs.org/http/SessionStore').rejects(error);
+    error.interface = 'module:express-session.Store';
+    container.create.withArgs('module:express-session.Store').rejects(error);
     
     var store = new Object();
     container.create.withArgs('./store/memory').resolves(store);
@@ -99,7 +99,7 @@ describe('session/store', function() {
         expect(logger.notice).to.have.been.calledWith('Using in-memory HTTP session store during development');
         
         expect(container.create).to.have.been.calledTwice;
-        expect(container.create.getCall(0).args[0]).to.equal('http://i.bixbyjs.org/http/SessionStore');
+        expect(container.create.getCall(0).args[0]).to.equal('module:express-session.Store');
         expect(container.create.getCall(1).args[0]).to.equal('./store/memory');
         expect(obj).to.equal(store);
         done();

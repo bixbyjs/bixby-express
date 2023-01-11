@@ -33,7 +33,7 @@ exports = module.exports = function(redis, location) {
 };
 
 exports['@singleton'] = true;
-exports['@implements'] = 'http://i.bixbyjs.org/http/SessionStore';
+exports['@implements'] = 'module:express-session.Store';
 exports['@service'] = 'sess-resp';
 exports['@port'] = 6379;
 exports['@require'] = [

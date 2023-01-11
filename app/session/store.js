@@ -4,9 +4,9 @@
  */
 exports = module.exports = function(C, logger) {
   
-  return C.create('http://i.bixbyjs.org/http/SessionStore')
+  return C.create('module:express-session.Store')
     .catch(function(error) {
-      if (error.code == 'IMPLEMENTATION_NOT_FOUND' && error.interface == 'http://i.bixbyjs.org/http/SessionStore'
+      if (error.code == 'IMPLEMENTATION_NOT_FOUND' && error.interface == 'module:express-session.Store'
           && process.env.NODE_ENV == 'development') {
         logger.notice('Using in-memory HTTP session store during development');
         return C.create('./store/memory');
