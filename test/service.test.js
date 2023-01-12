@@ -13,7 +13,7 @@ describe('service', function() {
   });
   
   it('should be annotated', function() {
-    expect(factory['@implements']).to.equal(undefined);
+    expect(factory['@implements']).to.equal('module:express.Application');
   });
   
   describe('instantiating with multiple services', function(done) {

@@ -29,7 +29,7 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   ],
-  "main": "./app",
+  "main": "./lib",
   "assembly": {
     "namespace": "http",
     "components": [
@@ -45,6 +45,9 @@
       "state/store",
       "session/store/redis"
     ]
+  },
+  "directories": {
+    "com": "./app"
   },
   "dependencies": {
     "body-parser": "^1.17.1",

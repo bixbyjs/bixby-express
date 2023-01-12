@@ -99,6 +99,7 @@ exports = module.exports = function(IoC, logging, settings, logger) {
     });
 };
 
+exports['@implements'] = 'module:express.Application';
 exports['@require'] = [
   '!container',
   './middleware/logging',
