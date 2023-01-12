@@ -4,6 +4,8 @@
  */
 exports = module.exports = function(C, logger) {
   
+  // WIP: eliminate this and make a component selector that secets based on environment.
+  
   return C.create('module:express-session.Store')
     .catch(function(error) {
       if (error.code == 'IMPLEMENTATION_NOT_FOUND' && error.interface == 'module:express-session.Store'
