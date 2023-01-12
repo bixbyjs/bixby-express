@@ -27,7 +27,7 @@ describe('gateway/http', function() {
     
     var container = new Object();
     container.create = sinon.stub()
-    container.create.withArgs('http://i.bixbyjs.org/http/Server').resolves(server);
+    container.create.withArgs('module:http.Server').resolves(server);
     
     before(function(done) {
       factory(container).then(function(obj) {

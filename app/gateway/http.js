@@ -28,8 +28,9 @@ function normalizePort(val) {
  */
 exports = module.exports = function(IoC) {
   
-  return IoC.create('http://i.bixbyjs.org/http/Server')
+  return IoC.create('module:http.Server')
     .then(function(server) {
+      //console.log(server)
       
       return {
         listen: function(cb) {
