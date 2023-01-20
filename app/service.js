@@ -9,6 +9,9 @@ exports = module.exports = function(IoC, logging, settings, logger) {
     , implementationNotFound = require('../lib/middleware/implementationnotfound')
     , path = require('path');
   
+  // https://github.com/expressjs/express/issues/3057
+  // https://stackoverflow.com/questions/41146164/nodejs-diffrence-between-express-and-express-router-in-sub-routes
+  
   
   var app = express();
   
@@ -26,10 +29,18 @@ exports = module.exports = function(IoC, logging, settings, logger) {
       return new Promise(function(resolve, reject) {
         var components = IoC.components('http://i.bixbyjs.org/template/Engine');
         
+        // FIXME: console.log not available here???
+        
         (function iter(i) {
           var component = components[i];
           if (!component) {
             return resolve(app);
+          }
+          
+          if (components.length == 1) {
+            //console.log('SET THE DEFAULT VIEW ENING!');
+            //console.log(components[0].a['@type']);
+            app.set('view engine', components[0].a['@type']);
           }
         
           component.create()
@@ -99,7 +110,7 @@ exports = module.exports = function(IoC, logging, settings, logger) {
     });
 };
 
-exports['@implements'] = 'module:express.Application';
+//exports['@implements'] = 'module:express.Application';
 exports['@require'] = [
   '!container',
   './middleware/logging',
