@@ -1,3 +1,6 @@
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
+
 /**
  * Redis session store.
  *
@@ -23,10 +26,6 @@
  * [3]: https://redis.io/topics/protocol
  */
 exports = module.exports = function(redis, location) {
-  var session = require('express-session');
-  var RedisStore = require('connect-redis')(session);
-  
-  
   var client = redis.createConnection(location);
   var store = new RedisStore({ client: client });
   return store;
