@@ -58,6 +58,35 @@ exports = module.exports = function(IoC, logging, settings, logger) {
       });
     })
     .then(function(app) {
+      // Register template engines.
+      return new Promise(function(resolve, reject) {
+        var components = IoC.components('module:express.ApplicationRequestHandler');
+        
+        (function iter(i) {
+          var component = components[i];
+          if (!component) {
+            return resolve(app);
+          }
+        
+          component.create()
+            .then(function(middleware) {
+              logger.info('Loaded middleware: ' + component.id);
+              
+              console.log(component)
+              
+              app.use(middleware);
+              iter(i + 1);
+            }, function(err) {
+              // TODO: Improve this error
+              var msg = 'Failed to load middleware: ' + component.id + '\n';
+              msg += err.stack;
+              logger.warning(msg);
+              return iter(i + 1);
+            })
+        })(0);
+      });
+    })
+    .then(function(app) {
       return new Promise(function(resolve, reject) {
         var components = IoC.components('http://i.bixbyjs.org/http/Service');
         
