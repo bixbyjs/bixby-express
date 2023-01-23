@@ -1,7 +1,7 @@
 var $require = require('proxyquire');
 var expect = require('chai').expect;
 var sinon = require('sinon');
-var factory = require('../../../app/session/store/memory');
+var factory = require('../../../app/session/stores/memory');
 var MemoryStore = require('express-session').MemoryStore;
 
 

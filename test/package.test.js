@@ -20,7 +20,8 @@ describe('bixby-express', function() {
       expect(json.assembly.components).to.include('middleware/parsecookies');
       expect(json.assembly.components).to.include('middleware/session');
       expect(json.assembly.components).to.include('state/store');
-      expect(json.assembly.components).to.include('session/store/redis');
+      expect(json.assembly.components).to.include('session/stores/memory');
+      expect(json.assembly.components).to.include('session/stores/redis');
     });
   });
   
