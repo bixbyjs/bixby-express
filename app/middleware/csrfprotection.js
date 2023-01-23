@@ -17,7 +17,7 @@
  * [3]: https://owasp.org/www-community/attacks/csrf
  * [4]: https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html
  */
-exports = module.exports = function(parseCookies) {
+exports = module.exports = function() {
   
   return function() {
     //var opts = {
@@ -51,5 +51,4 @@ exports = module.exports = function(parseCookies) {
 exports['@implements'] = 'http://i.bixbyjs.org/http/middleware/csrfProtection';
 exports['@singleton'] = true;
 exports['@require'] = [
-  'http://i.bixbyjs.org/http/middleware/parseCookies'
 ];
