@@ -39,7 +39,6 @@
       "middleware/csrfprotection",
       "middleware/errorlogging",
       "middleware/parsecookies",
-      "middleware/session",
       "middleware/state",
       "state/store",
       "session/stores/memory",
