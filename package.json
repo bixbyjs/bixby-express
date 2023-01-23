@@ -43,6 +43,7 @@
       "middleware/session",
       "middleware/state",
       "state/store",
+      "session/store/memory",
       "session/store/redis",
       "auth/authenticator"
     ]
