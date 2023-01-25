@@ -34,14 +34,14 @@
     "namespace": "http",
     "components": [
       "main",
-      "middleware/authenticate",
       "middleware/cleanstate",
       "middleware/csrfprotection",
       "middleware/errorlogging",
       "middleware/state",
       "state/store",
       "session/stores/memory",
-      "session/stores/redis"
+      "session/stores/redis",
+      "auth/authenticator"
     ]
   },
   "directories": {

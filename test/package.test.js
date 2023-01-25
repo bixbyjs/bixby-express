@@ -13,7 +13,6 @@ describe('bixby-express', function() {
       
       expect(json.assembly.components).to.have.length(9);
       expect(json.assembly.components).to.include('main');
-      expect(json.assembly.components).to.include('middleware/authenticate');
       expect(json.assembly.components).to.include('middleware/csrfprotection');
       expect(json.assembly.components).to.include('middleware/errorlogging');
       expect(json.assembly.components).to.include('state/store');
