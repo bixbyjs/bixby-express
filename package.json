@@ -41,8 +41,7 @@
       "middleware/state",
       "state/store",
       "session/stores/memory",
-      "session/stores/redis",
-      "auth/authenticator"
+      "session/stores/redis"
     ]
   },
   "directories": {
@@ -58,7 +57,7 @@
     "flowstate": "^0.5.0",
     "fluidfactory": "^0.1.0",
     "morgan": "^1.8.2",
-    "passport": "^0.4.0",
+    "passport": "^0.6.0",
     "utils-merge": "^1.0.1"
   },
   "devDependencies": {
