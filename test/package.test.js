@@ -14,7 +14,6 @@ describe('bixby-express', function() {
       expect(json.assembly.components).to.have.length(8);
       expect(json.assembly.components).to.include('main');
       expect(json.assembly.components).to.include('middleware/errorlogging');
-      expect(json.assembly.components).to.include('state/store');
       expect(json.assembly.components).to.include('session/stores/memory');
       expect(json.assembly.components).to.include('session/stores/redis');
     });

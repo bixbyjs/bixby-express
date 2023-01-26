@@ -13,5 +13,5 @@ exports['@implements'] = [
   'http://i.bixbyjs.org/http/middleware/state'
 ];
 exports['@require'] = [
-  '../state/store'
+  'module:flowstate.Store'
 ];

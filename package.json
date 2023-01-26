@@ -37,9 +37,9 @@
       "middleware/cleanstate",
       "middleware/errorlogging",
       "middleware/state",
-      "state/store",
       "session/stores/memory",
       "session/stores/redis",
+      "state/store/session",
       "auth/authenticator"
     ]
   },
