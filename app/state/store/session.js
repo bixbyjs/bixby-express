@@ -1,7 +1,9 @@
+var SessionStore = require('flowstate').SessionStore;
+
 exports = module.exports = function() {
-  var SessionStore = require('flowstate').SessionStore;
-  
   return new SessionStore();
 };
 
+exports['@singleton'] = true;
+exports['@implements'] = 'module:flowstate.Store';
 exports['@require'] = [];

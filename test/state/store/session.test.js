@@ -10,7 +10,7 @@ describe('state/store/session', function() {
   });
   
   it('should be annotated', function() {
-    expect(factory['@implements']).to.equal(undefined);
+    expect(factory['@implements']).to.equal('module:flowstate.Store');
   });
   
 });
