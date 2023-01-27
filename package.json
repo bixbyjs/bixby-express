@@ -34,7 +34,6 @@
     "namespace": "http",
     "components": [
       "main",
-      "middleware/cleanstate",
       "middleware/errorlogging",
       "session/stores/memory",
       "session/stores/redis",
