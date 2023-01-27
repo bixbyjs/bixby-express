@@ -36,7 +36,6 @@
       "main",
       "middleware/cleanstate",
       "middleware/errorlogging",
-      "middleware/state",
       "session/stores/memory",
       "session/stores/redis",
       "state/store/session",

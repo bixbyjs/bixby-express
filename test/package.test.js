@@ -11,7 +11,7 @@ describe('bixby-express', function() {
     it('should have assembly metadata', function() {
       expect(json.assembly.namespace).to.equal('http');
       
-      expect(json.assembly.components).to.have.length(8);
+      expect(json.assembly.components).to.have.length(7);
       expect(json.assembly.components).to.include('main');
       expect(json.assembly.components).to.include('middleware/errorlogging');
       expect(json.assembly.components).to.include('session/stores/memory');
