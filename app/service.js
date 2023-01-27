@@ -4,7 +4,7 @@
  * This component provides a default Express app which eliminates the
  * boilerplate typically used in most applications.
  */
-exports = module.exports = function(IoC, logging, settings, logger) {
+exports = module.exports = function(IoC, settings, logger) {
   var express = require('express')
     , implementationNotFound = require('../lib/middleware/implementationnotfound')
     , path = require('path');
@@ -21,7 +21,8 @@ exports = module.exports = function(IoC, logging, settings, logger) {
   // TODO: Mount static middleware, if directory exists
   app.use(express.static(path.resolve(path.dirname(require.main.filename), 'public')));
   
-  app.use(logging());
+  // TODO: Remove this middleware (and above) and let app specify it?
+  app.use(require('morgan')('common'));
   
   return Promise.resolve(app)
     .then(function(app) {
@@ -62,6 +63,9 @@ exports = module.exports = function(IoC, logging, settings, logger) {
       return new Promise(function(resolve, reject) {
         var components = IoC.components('module:express.ApplicationRequestHandler');
         
+        //console.log('~~~ LOADING APP LEVEL MIDDLEWARE ~~~');
+        //console.log(components);
+        
         (function iter(i) {
           var component = components[i];
           if (!component) {
@@ -72,7 +76,7 @@ exports = module.exports = function(IoC, logging, settings, logger) {
             .then(function(middleware) {
               logger.info('Loaded middleware: ' + component.id);
               
-              console.log(component)
+              //console.log(component)
               
               app.use(middleware);
               iter(i + 1);
@@ -142,7 +146,6 @@ exports = module.exports = function(IoC, logging, settings, logger) {
 //exports['@implements'] = 'module:express.Application';
 exports['@require'] = [
   '!container',
-  './middleware/logging',
   'http://i.bixbyjs.org/Settings',
   'http://i.bixbyjs.org/Logger'
 ];

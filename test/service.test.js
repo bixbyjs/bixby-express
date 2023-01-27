@@ -39,9 +39,6 @@ describe('service', function() {
     //container.create = sinon.stub()
     //container.create.withArgs('http://i.bixbyjs.org/http/Server').resolves(server);
     
-    var logging = function(req, res, next){};
-    var loggingMiddleware = sinon.stub().returns(logging);
-    
     var settings = new Object();
     settings.get = sinon.stub();
     settings.get.returns(undefined);
@@ -52,7 +49,7 @@ describe('service', function() {
     
     
     before(function(done) {
-      factory(container, loggingMiddleware, settings, logger).then(function(obj) {
+      factory(container, settings, logger).then(function(obj) {
         app = obj;
         done();
       }, done);
