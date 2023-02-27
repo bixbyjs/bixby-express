@@ -91,6 +91,39 @@ exports = module.exports = function(IoC, settings, logger) {
       });
     })
     .then(function(app) {
+      // Register template engines.
+      return new Promise(function(resolve, reject) {
+        var components = IoC.components('module:express.Locals');
+        
+        //console.log('~~~ LOADING APP LEVEL MIDDLEWARE ~~~');
+        //console.log(components);
+        
+        (function iter(i) {
+          var component = components[i];
+          if (!component) {
+            return resolve(app);
+          }
+        
+          component.create()
+            .then(function(value) {
+              logger.info('Loaded locals: ' + component.id);
+              
+              //console.log(component)
+              
+              app.locals[component.a['@name']] = value;
+              //app.use(middleware);
+              iter(i + 1);
+            }, function(err) {
+              // TODO: Improve this error
+              var msg = 'Failed to load locals: ' + component.id + '\n';
+              msg += err.stack;
+              logger.warning(msg);
+              return iter(i + 1);
+            })
+        })(0);
+      });
+    })
+    .then(function(app) {
       return new Promise(function(resolve, reject) {
         var components = IoC.components('http://i.bixbyjs.org/http/Service');
         
