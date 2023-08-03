@@ -17,6 +17,8 @@ exports = module.exports = function(IoC, logger) {
   //authenticator.use('session', sessionScheme);
   //authenticator.use('anonymous', anonymousScheme);
   
+  // TODO: Resolve login endpoint and set it as an option to default failureRedirect option.
+  
   // TODO: Remove session support here
   authenticator.serializeUser(function(user, cb) {
     console.log('SERIALIZE!!!!');
