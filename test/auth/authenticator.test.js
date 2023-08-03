@@ -11,7 +11,7 @@ describe('auth/authenticator', function() {
   });
   
   it('should be annotated', function() {
-    expect(factory['@implements']).to.equal('module:bixby-express.Authenticator');
+    expect(factory['@implements']).to.equal('module:passport.Authenticator');
     expect(factory['@singleton']).to.equal(true);
   });
   

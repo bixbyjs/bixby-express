@@ -72,5 +72,5 @@ exports = module.exports = function(IoC, logger) {
 };
 
 exports['@singleton'] = true;
-exports['@implements'] = 'module:bixby-express.Authenticator';
+exports['@implements'] = 'module:passport.Authenticator';
 exports['@require'] = [ '!container', 'http://i.bixbyjs.org/Logger' ];
