@@ -1,9 +1,21 @@
+/**
+ * Create authenticator.
+ *
+ * @returns {passport.Authenticator}
+ */
 exports = module.exports = function(IoC, logger) {
   // Load modules.
   var passport = require('passport');
   
   
   var authenticator = new passport.Authenticator();
+  
+  // TODO:
+  // authenticator.sessions(manager);
+  // authenticator.unuse('session');
+  // TODO: Make session scheme strict
+  //authenticator.use('session', sessionScheme);
+  //authenticator.use('anonymous', anonymousScheme);
   
   // TODO: Remove session support here
   authenticator.serializeUser(function(user, cb) {
