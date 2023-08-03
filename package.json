@@ -54,6 +54,7 @@
     "fluidfactory": "^0.1.0",
     "morgan": "^1.8.2",
     "passport": "^0.6.0",
+    "passport-anonymous": "^1.0.1",
     "utils-merge": "^1.0.1"
   },
   "devDependencies": {
