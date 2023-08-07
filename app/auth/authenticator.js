@@ -3,16 +3,18 @@
  *
  * @returns {passport.Authenticator}
  */
-exports = module.exports = function(IoC, logger) {
+exports = module.exports = function(IoC, manager, logger) {
   // Load modules.
   var passport = require('passport');
   
   
   var authenticator = new passport.Authenticator();
   
+  authenticator._sm = manager;
+  
   // TODO:
   // authenticator.sessions(manager);
-  // authenticator.unuse('session');
+  //authenticator.unuse('session');
   // TODO: Make session scheme strict
   //authenticator.use('session', sessionScheme);
   //authenticator.use('anonymous', anonymousScheme);
@@ -36,7 +38,7 @@ exports = module.exports = function(IoC, logger) {
     .then(function(authenticator) {
       // Register HTTP authentication schemes.
       return new Promise(function(resolve, reject) {
-        var components = IoC.components('http://i.bixbyjs.org/http/auth/Scheme');
+        var components = IoC.components('module:passport.Strategy');
         
         (function iter(i) {
           var component = components[i];
@@ -46,6 +48,7 @@ exports = module.exports = function(IoC, logger) {
           
           component.create()
             .then(function(scheme) {
+              // FIXME: how is anonymous getting in here?
               logger.info('Loaded HTTP authentication scheme: ' + (component.a['@scheme'] || scheme.name));
               
               authenticator.use(component.a['@scheme'] || scheme.name, scheme);
@@ -87,4 +90,8 @@ exports = module.exports = function(IoC, logger) {
 
 exports['@singleton'] = true;
 exports['@implements'] = 'module:passport.Authenticator';
-exports['@require'] = [ '!container', 'http://i.bixbyjs.org/Logger' ];
+exports['@require'] = [
+  '!container',
+  'module:passport.SessionManager', // TODO: Make this optional...
+  'http://i.bixbyjs.org/Logger'
+];
