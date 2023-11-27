@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.6] - 2023-11-27
+### Changed
+- Upgraded `passport` dependency to version 0.7.x.
+
 ## [0.2.5] - 2023-10-18
 ### Changed
 - Upgraded `flowstate` dependency to version 0.6.x.
