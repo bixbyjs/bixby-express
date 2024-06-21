@@ -46,6 +46,8 @@ exports = module.exports = function(IoC) {
           //var options = settings.get('http/server') || {};
           var options = {};
           var address = options.address;
+          // NOTE: 8080 is the default port expected by heroku, fly.io, etc
+          // https://fly.io/docs/reference/configuration/
           var port = options.port !== undefined ? options.port : normalizePort(process.env.PORT || 8080);
           
           server.listen(port, address);
